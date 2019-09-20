@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using AuthServer.Areas.Identity;
 using AuthServer.Data;
 using Microsoft.EntityFrameworkCore;
+using IdentityServer4;
 
 namespace AuthServer
 {
@@ -29,12 +30,28 @@ namespace AuthServer
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
-        {            
+        {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddIdentityServer().AddDeveloperSigningCredential()
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = builder => builder.UseNpgsql(
+                        Configuration.GetConnectionString("DefaultConnection"),
+                        options => options.MigrationsAssembly("AuthServer"));
+                    options.EnableTokenCleanup = true;
+                    options.TokenCleanupInterval = 30;
+                })
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddInMemoryClients(Config.GetClients())
+                .AddAspNetIdentity<IdentityUser>();
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
@@ -55,6 +72,8 @@ namespace AuthServer
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseIdentityServer();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
