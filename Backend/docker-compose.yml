@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  authserver:
+    container_name: 'authServer'
+    image: ${DOCKER_REGISTRY-}authserver
+    build:
+      context: .
+      dockerfile: AuthServer/Dockerfile
+    networks:
+      - "mainNetwork"
+    depends_on:
+      - "mainDB"
+
+  mainDB:
+    container_name: 'mainDB'
+    image: postgres
+    build:
+      context: .
+      dockerfile: MainDB/Dockerfile
+    networks:
+      - "mainNetwork"
+
+networks:
+  mainNetwork:
+    driver: bridge

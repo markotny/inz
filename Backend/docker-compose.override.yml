@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  authserver:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=44349
+    ports:
+      - "58944:80"
+      - "44349:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  mainDB:
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "AuthServerDB"
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - ./MainDB/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
