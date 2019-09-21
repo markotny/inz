@@ -12,7 +12,7 @@ import {UserRegistration} from './user-registration.model';
 export class RegisterComponent implements OnInit {
   success: boolean;
   error: string;
-  userRegistration: UserRegistration = {name: '', email: '', password: ''};
+  userRegistration: UserRegistration = {username: '', email: '', password: ''};
   submitted = false;
 
   constructor(private authService: AuthService, private spinner: NgxSpinnerService) {}

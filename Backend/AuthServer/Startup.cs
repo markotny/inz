@@ -25,6 +25,8 @@ namespace AuthServer
             Configuration = configuration;
         }
 
+        readonly string AllowCorsOrigins = "_corsPolicy";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -37,6 +39,16 @@ namespace AuthServer
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(AllowCorsOrigins, builder =>
+                {
+                    builder.AllowAnyOrigin();
+                    builder.WithOrigins(Config.GetClients().SelectMany(client => client.AllowedCorsOrigins).ToArray())
+                        .AllowAnyHeader();
+                });
+            });
 
             services.AddIdentityServer().AddDeveloperSigningCredential()
                 .AddOperationalStore(options =>
@@ -51,7 +63,7 @@ namespace AuthServer
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
                 .AddAspNetIdentity<IdentityUser>();
-                        
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
@@ -72,6 +84,7 @@ namespace AuthServer
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseCors(AllowCorsOrigins);
 
             app.UseIdentityServer();
 

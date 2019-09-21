@@ -17,9 +17,9 @@ import {ConfigService} from '@shared/config.service';
     BrowserModule,
     HttpClientModule,
     CoreModule,
-    AppRoutingModule,
     HomeModule,
     AccountModule,
+    AppRoutingModule,
     ShellModule,
     SharedModule
   ],
