@@ -11,6 +11,11 @@ namespace AuthServer.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
 
+        public AccountController(UserManager<IdentityUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
         [HttpPost]
         public async Task<IActionResult> Register([FromBody]RegisterRequestViewModel model)
         {
