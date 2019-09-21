@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { finalize } from 'rxjs/operators';
-import { AuthService } from '../../core/authentication/auth.service';
-import { UserRegistration } from '../../shared/models/user.registration';
+import {Component, OnInit} from '@angular/core';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {finalize} from 'rxjs/operators';
+import {AuthService} from '@core/authentication/auth.service';
+import {UserRegistration} from './user-registration.model';
 
 @Component({
   selector: 'app-register',
@@ -12,13 +12,10 @@ import { UserRegistration } from '../../shared/models/user.registration';
 export class RegisterComponent implements OnInit {
   success: boolean;
   error: string;
-  userRegistration: UserRegistration = { name: '', email: '', password: '' };
+  userRegistration: UserRegistration = {name: '', email: '', password: ''};
   submitted = false;
 
-  constructor(
-    private authService: AuthService,
-    private spinner: NgxSpinnerService
-  ) {}
+  constructor(private authService: AuthService, private spinner: NgxSpinnerService) {}
 
   ngOnInit() {}
 
