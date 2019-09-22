@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  spa:
+    ports:
+      - '4200:4200'
+    volumes:
+      - './SPA:/app'
+      - '/app/node_modules'
+
+  authserver:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=mainDB;Port=5432;Database=AuthServerDB;User Id=postgres;Password=admin
+    ports:
+      - "58944:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  mainDB:
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "AuthServerDB"
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - ./MainDB/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
