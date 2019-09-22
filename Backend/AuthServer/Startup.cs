@@ -15,6 +15,9 @@ using AuthServer.Areas.Identity;
 using AuthServer.Data;
 using Microsoft.EntityFrameworkCore;
 using IdentityServer4;
+using IdentityServer4.Services;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace AuthServer
 {
@@ -44,7 +47,6 @@ namespace AuthServer
             {
                 options.AddPolicy(AllowCorsOrigins, builder =>
                 {
-                    builder.AllowAnyOrigin();
                     builder.WithOrigins(Config.GetClients().SelectMany(client => client.AllowedCorsOrigins).ToArray())
                         .AllowAnyHeader();
                 });
@@ -85,6 +87,7 @@ namespace AuthServer
                 app.UseHsts();
             }
             app.UseCors(AllowCorsOrigins);
+            app.UseSerilogRequestLogging();
 
             app.UseIdentityServer();
 
