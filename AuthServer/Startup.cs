@@ -47,7 +47,9 @@ namespace AuthServer
             {
                 options.AddPolicy(AllowCorsOrigins, builder =>
                 {
-                    builder.WithOrigins(Config.GetClients().SelectMany(client => client.AllowedCorsOrigins).Append("http://localhost:58944").ToArray())
+                    builder.WithOrigins(
+                        Config.GetClients().SelectMany(client => client.AllowedCorsOrigins)
+                        .Append("http://localhost:58944").ToArray())
                         .AllowAnyHeader();
                 });
             });

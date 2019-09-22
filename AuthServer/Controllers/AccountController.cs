@@ -26,7 +26,7 @@ namespace AuthServer.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new IdentityUser { UserName = model.UserName, Email = model.Email };
+            var user = new IdentityUser { UserName = model.Email, Email = model.Email };
 
             var result = await _userManager.CreateAsync(user, model.Password);
 
