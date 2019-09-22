@@ -4,15 +4,12 @@ services:
   authserver:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_HTTPS_PORT=44349
+      - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__DefaultConnection=Server=mainDB;Port=5432;Database=AuthServerDB;User Id=postgres;Password=admin
     ports:
       - "58944:80"
-      - "44349:443"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
   mainDB:
     environment:

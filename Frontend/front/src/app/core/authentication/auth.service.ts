@@ -61,7 +61,7 @@ export class AuthService extends BaseService {
 
 export function getClientSettings(): UserManagerSettings {
   return {
-    authority: 'https://localhost:44349',
+    authority: 'http://localhost:58944',
     client_id: 'angular_spa',
     redirect_uri: 'http://localhost:4200/auth-callback',
     post_logout_redirect_uri: 'http://localhost:4200/',
