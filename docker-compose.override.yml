@@ -15,8 +15,6 @@ services:
       - ConnectionStrings__DefaultConnection=Server=mainDB;Port=5432;Database=AuthServerDB;User Id=postgres;Password=admin
     ports:
       - "58944:80"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
 
   mainDB:
     environment:
