@@ -7,7 +7,7 @@ services:
     volumes:
       - './SPA:/app'
       - '/app/node_modules'
-
+      
   authserver:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -15,6 +15,14 @@ services:
       - ConnectionStrings__DefaultConnection=Server=mainDB;Port=5432;Database=AuthServerDB;User Id=postgres;Password=admin
     ports:
       - "58944:80"
+
+  reserver:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=mainDB;Port=5432;Database=ReServerDB;User Id=postgres;Password=admin
+    ports:
+      - "58945:80"
 
   mainDB:
     environment:
