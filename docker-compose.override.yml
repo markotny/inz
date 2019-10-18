@@ -23,6 +23,8 @@ services:
       - ConnectionStrings__DefaultConnection=Server=mainDB;Port=5432;Database=ReServerDB;User Id=postgres;Password=admin
     ports:
       - "58945:80"
+    volumes:
+      - './ResourceServer/:/app'
 
   mainDB:
     environment:

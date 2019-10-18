@@ -1,21 +1,16 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-buster-slim AS base
-WORKDIR /app
-EXPOSE 80
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
-WORKDIR /src
-COPY ["ResourceServer/ResourceServer.Api/ResourceServer.Api.csproj", "ResourceServer/ResourceServer.Api/"]
-COPY ["ResourceServer/ResourceServer.Infrastructure/ResourceServer.Infrastructure.csproj", "ResourceServer/ResourceServer.Infrastructure/"]
-COPY ["ResourceServer/ResourceServer.Core/ResourceServer.Core.csproj", "ResourceServer/ResourceServer.Core/"]
-RUN dotnet restore "ResourceServer/ResourceServer.Api/ResourceServer.Api.csproj"
-COPY . .
-WORKDIR "/src/ResourceServer/ResourceServer.Api"
-RUN dotnet build "ResourceServer.Api.csproj" -c Release -o /app/build
+WORKDIR /vsdbg
 
-FROM build AS publish
-RUN dotnet publish "ResourceServer.Api.csproj" -c Release -o /app/publish
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+            unzip \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -sSL https://aka.ms/getvsdbgsh \
+        | bash /dev/stdin -v latest -l /vsdbg
 
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "ResourceServer.Api.dll"]
+ENV DOTNET_USE_POLLING_FILE_WATCHER 1
+
+WORKDIR /app/ResourceServer.Api
+
+ENTRYPOINT dotnet watch run --urls=http://+:80

@@ -20,6 +20,8 @@ services:
       - "58944:80"
       
   reserver:
+    build:
+      dockerfile: Dockerfile.prod
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
