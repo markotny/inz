@@ -27,19 +27,15 @@ namespace ResourceServer.Api
 
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var dbContext = new AppDbContext(
-                serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null))
+            using var dbContext = new AppDbContext(
+                serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null);
+            // Look for any TODO items.
+            if (dbContext.ToDoItems.Any())
             {
-                // Look for any TODO items.
-                if (dbContext.ToDoItems.Any())
-                {
-                    return;   // DB has been seeded
-                }
-
-                PopulateTestData(dbContext);
-
-
+                return;   // DB has been seeded
             }
+
+            PopulateTestData(dbContext);
         }
         public static void PopulateTestData(AppDbContext dbContext)
         {

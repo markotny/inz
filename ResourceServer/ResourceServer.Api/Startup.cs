@@ -5,6 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
+using HotChocolate;
+using ResourceServer.Api.Types;
+using HotChocolate.AspNetCore;
 
 namespace ResourceServer.Api
 {
@@ -18,7 +21,13 @@ namespace ResourceServer.Api
 		{
 			services.AddDbContext();
 
-            services.AddControllers();
+			services.AddControllers();
+
+			services.AddGraphQL(sp => SchemaBuilder.New()
+				.AddQueryType<QueryType>()
+				.AddType<ToDoItemType>()
+				.Create()
+			);
 
 			return ContainerSetup.InitializeApi(Assembly.GetExecutingAssembly(), services);
 		}
@@ -31,9 +40,14 @@ namespace ResourceServer.Api
 			}
 			app.UseRouting();
 
+			app.UseWebSockets()
+				.UseGraphQL("/graphql")
+				.UseGraphiQL("/graphql")
+				.UsePlayground("/graphql");
+
 			app.UseEndpoints(endpoints =>
 			{
-                endpoints.MapControllers();
+				endpoints.MapControllers();
 			});
 		}
 	}
