@@ -25,6 +25,7 @@ namespace ResourceServer.Api
 
 			services.AddGraphQL(sp => SchemaBuilder.New()
 				.AddQueryType<QueryType>()
+				.AddMutationType<MutationType>()
 				.AddType<ToDoItemType>()
 				.Create()
 			);
@@ -42,7 +43,6 @@ namespace ResourceServer.Api
 
 			app.UseWebSockets()
 				.UseGraphQL("/graphql")
-				.UseGraphiQL("/graphql")
 				.UsePlayground("/graphql");
 
 			app.UseEndpoints(endpoints =>

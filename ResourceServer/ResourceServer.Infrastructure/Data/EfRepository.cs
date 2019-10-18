@@ -39,10 +39,12 @@ namespace ResourceServer.Infrastructure.Data
             _dbContext.SaveChanges();
         }
 
-        public void Update<T>(T entity) where T : BaseEntity
+        public T Update<T>(T entity) where T : BaseEntity
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
             _dbContext.SaveChanges();
+
+			return entity;
         }
     }
 }
