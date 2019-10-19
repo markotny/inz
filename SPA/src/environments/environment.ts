@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  authServerUri: 'http://localhost:58944',
-  thisUri: 'http://localhost:4200'
+  authServerUri: 'http://auth.localhost',
+  thisUri: 'http://localhost'
 };
 
 /*

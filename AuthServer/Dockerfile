@@ -1,19 +1,16 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0
+
+WORKDIR /vsdbg
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+            unzip \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -sSL https://aka.ms/getvsdbgsh \
+        | bash /dev/stdin -v latest -l /vsdbg
+
+ENV DOTNET_USE_POLLING_FILE_WATCHER 1
+
 WORKDIR /app
-EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
-WORKDIR /src
-COPY ["AuthServer/AuthServer.csproj", "AuthServer/"]
-RUN dotnet restore "AuthServer/AuthServer.csproj"
-COPY . .
-WORKDIR "/src/AuthServer"
-RUN dotnet build "AuthServer.csproj" -c Release -o /app/build
-
-FROM build AS publish
-RUN dotnet publish "AuthServer.csproj" -c Release -o /app/publish
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "AuthServer.dll"]
+ENTRYPOINT dotnet watch run --urls=http://+:80
