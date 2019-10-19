@@ -8,6 +8,7 @@ using System.Reflection;
 using HotChocolate;
 using ResourceServer.Api.Types;
 using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Playground;
 
 namespace ResourceServer.Api
 {
@@ -43,7 +44,11 @@ namespace ResourceServer.Api
 
 			app.UseWebSockets()
 				.UseGraphQL("/graphql")
-				.UsePlayground("/graphql");
+				.UsePlayground(new PlaygroundOptions
+				{
+					QueryPath = "/api/graphql/",
+					Path = "/playground"
+				});
 
 			app.UseEndpoints(endpoints =>
 			{
