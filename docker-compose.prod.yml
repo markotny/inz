@@ -1,15 +1,15 @@
-version: '3.4'
+version: "3.4"
 
 services:
   spa:
-    container_name: 'spa-prod'
+    container_name: "spa-prod"
     build:
       dockerfile: Dockerfile.prod
     ports:
-      - '80:80'
+      - "80:80"
     volumes:
-      - '.:/app'
-      - '/app/node_modules'
+      - ".:/app"
+      - "/app/node_modules"
 
   authserver:
     environment:
@@ -18,7 +18,7 @@ services:
       - ConnectionStrings__DefaultConnection=Server=mainDB;Port=5432;Database=AuthServerDB;User Id=postgres;Password=admin
     ports:
       - "58944:80"
-      
+
   reserver:
     build:
       dockerfile: Dockerfile.prod
@@ -29,7 +29,7 @@ services:
     ports:
       - "58945:80"
 
-  mainDB:
+  maindb:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "admin"
@@ -39,3 +39,12 @@ services:
     restart: always
     volumes:
       - ./MainDB/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+  revproxy:
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./RevProxy:/etc/nginx/conf.d"
+      - "<path/to/certs:/etc/ssl/private"
+      # configuration: https://www.freecodecamp.org/news/docker-nginx-letsencrypt-easy-secure-reverse-proxy-40165ba3aee2/

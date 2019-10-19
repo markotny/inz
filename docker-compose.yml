@@ -1,16 +1,16 @@
-version: '3.4'
+version: "3.4"
 
 services:
   spa:
-    container_name: 'spa'
+    container_name: "spa"
     build:
       context: ./SPA
       dockerfile: Dockerfile
     networks:
       - "mainNetwork"
-      
+
   authserver:
-    container_name: 'authServer'
+    container_name: "authServer"
     image: ${DOCKER_REGISTRY-}authserver
     build:
       context: .
@@ -18,10 +18,10 @@ services:
     networks:
       - "mainNetwork"
     depends_on:
-      - "mainDB"
+      - "maindb"
 
   reserver:
-    container_name: 'reServer'
+    container_name: "reServer"
     image: ${DOCKER_REGISTRY-}reserver
     build:
       context: .
@@ -29,16 +29,25 @@ services:
     networks:
       - "mainNetwork"
     depends_on:
-      - "mainDB"
+      - "maindb"
 
-  mainDB:
-    container_name: 'mainDB'
+  maindb:
+    container_name: "mainDB"
     image: postgres
     build:
       context: .
       dockerfile: MainDB/Dockerfile
     networks:
       - "mainNetwork"
+
+  revproxy:
+    container_name: "revProxy"
+    image: nginx
+    networks:
+      - "mainNetwork"
+    depends_on:
+      - "spa"
+      - "reserver"
 
 networks:
   mainNetwork:

@@ -1,13 +1,13 @@
-version: '3.4'
+version: "3.4"
 
 services:
   spa:
     ports:
-      - '4200:4200'
+      - "4200:4200"
     volumes:
-      - './SPA:/app'
-      - '/app/node_modules'
-      
+      - "./SPA:/app"
+      - "/app/node_modules"
+
   authserver:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -24,9 +24,9 @@ services:
     ports:
       - "58945:80"
     volumes:
-      - './ResourceServer/:/app'
+      - "./ResourceServer/:/app"
 
-  mainDB:
+  maindb:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "admin"
@@ -36,3 +36,9 @@ services:
     restart: always
     volumes:
       - ./MainDB/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+  revproxy:
+    ports:
+      - "80:80"
+    volumes:
+      - "./RevProxy:/etc/nginx/conf.d"
