@@ -98,7 +98,8 @@ namespace AuthServer.Areas.Identity.Pages.Account
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
                     }
                     else
-                    {
+					{
+						await _signInManager.SignInAsync(user, isPersistent: false);
 						return Redirect(returnUrl);
                     }
                 }

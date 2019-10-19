@@ -25,7 +25,7 @@ export class AuthCallbackComponent implements OnInit {
 					this.router.navigate(['/home']);
 					break;
 				case AuthAction.Register:
-					this.router.navigate(['/home']);
+					this.authService.login();
 					break;
 				case AuthAction.SilentRefresh:
 					await this.authService.completeSilentRefresh();
