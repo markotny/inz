@@ -8,7 +8,7 @@ import {AuthService} from '../auth.service';
 	styleUrls: ['./auth-callback.component.scss']
 })
 export class AuthCallbackComponent implements OnInit {
-	error: boolean;
+	error: boolean; // TODO: check for error in callback?
 
 	constructor(
 		private authService: AuthService,
@@ -17,13 +17,13 @@ export class AuthCallbackComponent implements OnInit {
 	) {}
 
 	async ngOnInit() {
-		// check for error
-		// if (this.route.snapshot.fragment.indexOf('error') >= 0) {
-		// 	this.error = true;
-		// 	return;
-		// }
-
-		await this.authService.completeAuthentication();
-		this.router.navigate(['/home']);
+		this.route.url.subscribe(async url => {
+			if (url[0].path === 'silent-refresh') {
+				await this.authService.completeSilentRefresh();
+			} else {
+				await this.authService.completeAuthentication();
+				this.router.navigate(['/home']);
+			}
+		});
 	}
 }
