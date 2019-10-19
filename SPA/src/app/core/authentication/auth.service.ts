@@ -28,7 +28,7 @@ export class AuthService extends BaseService {
 			this.authNavStatusSource.next(this.isAuthenticated());
 		});
 
-		this.manager.events.addSilentRenewError((err) => console.log('silent renew error', err));
+		this.manager.events.addSilentRenewError(err => console.log('silent renew error', err));
 	}
 
 	login() {
@@ -43,10 +43,6 @@ export class AuthService extends BaseService {
 	async completeSilentRefresh() {
 		await this.manager.signinSilentCallback();
 	}
-
-	// registerRedirect() {
-	//   return this.manager.
-	// }
 
 	register(userRegistration: any) {
 		return this.http.post(this.authApiUri, userRegistration).pipe(catchError(this.handleError));
@@ -73,13 +69,13 @@ export function getClientSettings(): UserManagerSettings {
 	return {
 		authority: environment.authServerUri,
 		client_id: 'angular_spa',
-		redirect_uri: `${environment.thisUri}/auth-callback`,
-		post_logout_redirect_uri: `${environment.thisUri}/`,
 		response_type: 'code',
 		scope: 'openid profile email api.read',
 		filterProtocolClaims: true,
 		loadUserInfo: true,
 		automaticSilentRenew: true,
-		silent_redirect_uri: `${environment.thisUri}/silent-refresh.html`
+		redirect_uri: `${environment.thisUri}/login-callback`,
+		post_logout_redirect_uri: `${environment.thisUri}/`,
+		silent_redirect_uri: `${environment.thisUri}/silent-refresh`
 	};
 }

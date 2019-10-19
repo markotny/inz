@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AuthService} from '../auth.service';
+import {AuthAction} from './auth-action.enum';
 
 @Component({
 	selector: 'app-auth-callback',
@@ -17,12 +18,18 @@ export class AuthCallbackComponent implements OnInit {
 	) {}
 
 	async ngOnInit() {
-		this.route.url.subscribe(async url => {
-			if (url[0].path === 'silent-refresh') {
-				await this.authService.completeSilentRefresh();
-			} else {
-				await this.authService.completeAuthentication();
-				this.router.navigate(['/home']);
+		this.route.data.subscribe(async data => {
+			switch (data.action) {
+				case AuthAction.Login:
+					await this.authService.completeAuthentication();
+					this.router.navigate(['/home']);
+					break;
+				case AuthAction.Register:
+					this.router.navigate(['/home']);
+					break;
+				case AuthAction.SilentRefresh:
+					await this.authService.completeSilentRefresh();
+					break;
 			}
 		});
 	}

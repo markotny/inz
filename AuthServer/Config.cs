@@ -38,7 +38,7 @@ namespace AuthServer
 					RequirePkce = true,
 					RequireClientSecret = false,
 					AllowedScopes = { "openid", "profile", "email", "api.read" },
-					RedirectUris = {"http://localhost/auth-callback", "http://localhost/silent-refresh"},
+					RedirectUris = {"http://localhost/login-callback", "http://localhost/register-callback", "http://localhost/silent-refresh" },
 					PostLogoutRedirectUris = {"http://localhost/"},
 					AllowedCorsOrigins = {"http://localhost"},
 					AllowAccessTokensViaBrowser = true,
