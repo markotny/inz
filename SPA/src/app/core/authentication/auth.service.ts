@@ -10,15 +10,6 @@ import {catchError} from 'rxjs/operators';
 	providedIn: 'root'
 })
 export class AuthService extends BaseService {
-	private authApiUri: string;
-	// Observable navItem source
-	private authNavStatusSource = new BehaviorSubject<boolean>(false);
-	// Observable navItem stream
-	authNavStatus$ = this.authNavStatusSource.asObservable();
-
-	private manager = new UserManager(getClientSettings());
-	private user: User | null;
-
 	constructor(private http: HttpClient) {
 		super();
 
@@ -29,6 +20,27 @@ export class AuthService extends BaseService {
 		});
 
 		this.manager.events.addSilentRenewError(err => console.log('silent renew error', err));
+	}
+
+	get authorizationHeaderValue(): string {
+		return `${this.user.token_type} ${this.user.access_token}`;
+	}
+
+	get name(): string {
+		return this.user != null ? this.user.profile.name : '';
+	}
+	private authApiUri: string;
+	// Observable navItem source
+	private authNavStatusSource = new BehaviorSubject<boolean>(false);
+	// Observable navItem stream
+	authNavStatus$ = this.authNavStatusSource.asObservable();
+
+	private manager = new UserManager(getClientSettings());
+	private user: User | null;
+
+	register() {
+		const returnUrl = `${environment.thisUri}/register-callback`;
+		window.location.href = `http://auth.localhost/Identity/Account/Register?ReturnUrl=${returnUrl}`;
 	}
 
 	login() {
@@ -44,20 +56,8 @@ export class AuthService extends BaseService {
 		await this.manager.signinSilentCallback();
 	}
 
-	register(userRegistration: any) {
-		return this.http.post(this.authApiUri, userRegistration).pipe(catchError(this.handleError));
-	}
-
 	isAuthenticated(): boolean {
 		return this.user != null && !this.user.expired;
-	}
-
-	get authorizationHeaderValue(): string {
-		return `${this.user.token_type} ${this.user.access_token}`;
-	}
-
-	get name(): string {
-		return this.user != null ? this.user.profile.name : '';
 	}
 
 	signout() {

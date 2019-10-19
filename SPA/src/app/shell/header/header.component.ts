@@ -21,12 +21,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.name = this.authService.name;
 	}
 
+	register() {
+		this.authService.register();
+	}
+
+	login() {
+		this.authService.login();
+	}
+
 	signout() {
 		this.authService.signout();
 	}
 
 	ngOnDestroy() {
-		// prevent memory leak when component is destroyed
 		this.subscription.unsubscribe();
 	}
 }
