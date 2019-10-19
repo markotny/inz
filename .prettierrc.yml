@@ -1,4 +1,10 @@
+printWidth: 100
+singleQuote: true
+tabWidth: 3
+useTabs: true
+bracketSpacing: false
 overrides:
   - files: "*.yml"
     options:
+      singleQuote: false
       tabWidth: 2

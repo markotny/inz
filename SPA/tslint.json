@@ -31,6 +31,7 @@
       true,
       100
     ],
+    "indent": true,
     "member-access": false,
     "member-ordering": [
       true,

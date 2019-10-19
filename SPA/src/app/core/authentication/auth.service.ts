@@ -23,7 +23,6 @@ export class AuthService extends BaseService {
     super();
 
     this.authApiUri = `${environment.authServerUri}/api/account`;
-    console.log(this.authApiUri);
     this.manager.getUser().then(user => {
       this.user = user;
       this.authNavStatusSource.next(this.isAuthenticated());
@@ -31,8 +30,6 @@ export class AuthService extends BaseService {
   }
 
   login() {
-    console.log(getClientSettings());
-    console.log(this.manager.metadataService.getTokenEndpoint());
     return this.manager.signinRedirect();
   }
 
@@ -40,6 +37,10 @@ export class AuthService extends BaseService {
     this.user = await this.manager.signinRedirectCallback();
     this.authNavStatusSource.next(this.isAuthenticated());
   }
+
+  // registerRedirect() {
+  //   return this.manager.
+  // }
 
   register(userRegistration: any) {
     return this.http
@@ -70,7 +71,7 @@ export function getClientSettings(): UserManagerSettings {
     client_id: 'angular_spa',
     redirect_uri: `${environment.thisUri}/auth-callback`,
     post_logout_redirect_uri: `${environment.thisUri}/`,
-    response_type: 'id_token token',
+    response_type: 'code',
     scope: 'openid profile email api.read',
     filterProtocolClaims: true,
     loadUserInfo: true,
