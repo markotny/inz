@@ -5,38 +5,47 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using Serilog;
+using Serilog.Events;
 
 namespace ResourceServer.Api
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var host = CreateWebHostBuilder(args).Build();
+	public class Program
+	{
+		public static void Main(string[] args)
+		{
+			Log.Logger = new LoggerConfiguration()
+				.MinimumLevel.Debug()
+				.MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+				.Enrich.FromLogContext()
+				.WriteTo.Console()
+				.CreateLogger();
 
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
+			var host = CreateWebHostBuilder(args).Build();
 
-                try
-                {
-                    var context = services.GetRequiredService<AppDbContext>();
-//                    context.Database.Migrate();
-                    context.Database.EnsureCreated();
-                    SeedData.Initialize(services);
-                }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred seeding the DB.");
-                }
-            }
+			using (var scope = host.Services.CreateScope())
+			{
+				var services = scope.ServiceProvider;
 
-            host.Run();
-        }
+				try
+				{
+					var context = services.GetRequiredService<AppDbContext>();
+					// context.Database.Migrate();
+					context.Database.EnsureCreated();
+					SeedData.Initialize(services);
+				}
+				catch (Exception ex)
+				{
+					Log.Error(ex, "An error occurred seeding the DB.");
+				}
+			}
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
-    }
+			host.Run();
+		}
+
+		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+			WebHost.CreateDefaultBuilder(args)
+				.UseStartup<Startup>()
+				.UseSerilog();
+	}
 }

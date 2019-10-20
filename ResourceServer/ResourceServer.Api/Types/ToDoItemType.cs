@@ -4,9 +4,13 @@ using System;
 
 namespace ResourceServer.Api.Types
 {
-    public class ToDoItemType : ObjectType<ToDoItem>
-    {
-    }
+	public class ToDoItemType : ObjectType<ToDoItem>
+	{
+		protected override void Configure(IObjectTypeDescriptor<ToDoItem> descriptor)
+		{
+			descriptor.Field(t => t.Description).Type<StringType>().Authorize();
+		}
+	}
 
 	public class CreateToDoItemInput : InputObjectType<ToDoItem>
 	{

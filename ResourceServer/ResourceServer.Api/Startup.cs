@@ -9,7 +9,9 @@ using HotChocolate;
 using ResourceServer.Api.Types;
 using HotChocolate.AspNetCore;
 using HotChocolate.AspNetCore.Playground;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Logging;
+using HotChocolate.Execution.Configuration;
+using Serilog;
 
 namespace ResourceServer.Api
 {
@@ -26,19 +28,24 @@ namespace ResourceServer.Api
 			services.AddControllers();
 
 			services.AddGraphQL(sp => SchemaBuilder.New()
-				//.AddAuthorizeDirectiveType()
+				.AddAuthorizeDirectiveType()
 				.AddQueryType<QueryType>()
 				.AddMutationType<MutationType>()
 				.AddType<ToDoItemType>()
 				.Create()
-			);
+			, new QueryExecutionOptions
+			{
+				TracingPreference = TracingPreference.OnDemand,
+				IncludeExceptionDetails = true
+			});
 
-			//services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
-			//{
-			//	options.Authority = "authServer";
-			//	options.Audience = "reServer";
-			//	options.RequireHttpsMetadata = false;
-			//});
+			services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
+			{
+				options.Authority = "http://authServer";
+				options.Audience = "reServer";
+				options.RequireHttpsMetadata = false;
+				options.TokenValidationParameters.ValidIssuer = "http://auth.localhost";
+			});
 
 			return ContainerSetup.InitializeApi(Assembly.GetExecutingAssembly(), services);
 		}
@@ -48,10 +55,12 @@ namespace ResourceServer.Api
 			if (env.EnvironmentName == "Development")
 			{
 				app.UseDeveloperExceptionPage();
+				IdentityModelEventSource.ShowPII = true;
 			}
 			app.UseRouting();
 
-			//app.UseAuthentication();
+			app.UseAuthentication();
+			app.UseSerilogRequestLogging();
 
 			app.UseWebSockets()
 				.UseGraphQL("/graphql")
