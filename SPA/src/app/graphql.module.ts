@@ -8,14 +8,15 @@ import {ApolloLink} from 'apollo-link';
 
 const uri = 'api/graphql';
 export function createApollo(httpLink: HttpLink, authService: AuthService) {
-	const auth = setContext((_operation, _context) => ({
-		headers: {
-			Authorization: authService.authorizationHeaderValue
-		}
-	}));
+	// const auth = setContext((_operation, _context) => ({
+	// 	headers: {
+	// 		Authorization: authService.authorizationHeaderValue
+	// 	}
+	// }));
 
 	return {
-		link: ApolloLink.from([auth, httpLink.create({uri})]),
+		// link: ApolloLink.from([auth, httpLink.create({uri})]),
+		link: httpLink.create({uri}),
 		cache: new InMemoryCache()
 	};
 }
