@@ -1,0 +1,6 @@
+mutation addToDoItem($newItem: CreateToDoItemInput) {
+	addToDoItem(input: $newItem) {
+		title
+		description
+	}
+}

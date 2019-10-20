@@ -1,0 +1,44 @@
+# source: http://localhost/api/graphql
+# timestamp: Sun Oct 20 2019 16:02:47 GMT+0200 (GMT+02:00)
+
+"""The cost directives is used to express the complexity of a field."""
+directive @cost(
+  """Defines the complexity of the field."""
+  complexity: Int! = 1
+
+  """Defines field arguments that act as complexity multipliers."""
+  multipliers: [MultiplierPath!]
+) on FIELD_DEFINITION
+
+input CreateToDoItemInput {
+  description: String
+  title: String
+}
+
+"""
+The multiplier path scalar represents a valid GraphQL multiplier path string.
+"""
+scalar MultiplierPath
+
+type Mutation {
+  addToDoItem(input: CreateToDoItemInput): ToDoItem!
+  updateToDoItem(input: UpdateToDoItemInput): ToDoItem!
+}
+
+type Query {
+  toDoItem(id: Int! = 1): ToDoItem
+}
+
+type ToDoItem {
+  description: String
+  id: Int!
+  isDone: Boolean!
+  title: String
+}
+
+input UpdateToDoItemInput {
+  description: String
+  id: Int!
+  isDone: Boolean!
+  title: String
+}

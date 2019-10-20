@@ -1,8 +1,12 @@
 <div class="container">
-    <div class="jumbotron mt-3">
-      <h1>OAuth Client Demo</h1>
-      <p class="lead">OAuth/OpenID Connect Demo using Angular, ASP.NET Core and IdentityServer 4</p>
-    </div>
+  <div class="jumbotron mt-3">
+    <h1>OAuth Client Demo</h1>
+    <p class="lead">OAuth/OpenID Connect Demo using Angular, ASP.NET Core and IdentityServer 4</p>
+  </div>
 </div>
 
- 
+<div>
+  <input type="number" [(ngModel)]="selId">
+  <h2>Title: {{(item | async)?.title}}</h2>
+  <h2>Description: {{(item | async)?.description}}</h2>
+</div>

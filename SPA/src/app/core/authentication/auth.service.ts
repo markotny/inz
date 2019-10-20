@@ -1,19 +1,16 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {environment} from '@env/environment';
 import {UserManager, UserManagerSettings, User} from 'oidc-client';
 import {BaseService} from '@shared/base.service';
 import {BehaviorSubject} from 'rxjs';
-import {catchError} from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthService extends BaseService {
-	constructor(private http: HttpClient) {
+	constructor() {
 		super();
 
-		this.authApiUri = `${environment.authServerUri}/api/account`;
 		this.manager.getUser().then(user => {
 			this.user = user;
 			this.authNavStatusSource.next(this.isAuthenticated());
@@ -29,7 +26,6 @@ export class AuthService extends BaseService {
 	get name(): string {
 		return this.user != null ? this.user.profile.name : '';
 	}
-	private authApiUri: string;
 	// Observable navItem source
 	private authNavStatusSource = new BehaviorSubject<boolean>(false);
 	// Observable navItem stream

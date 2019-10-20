@@ -9,6 +9,7 @@ using HotChocolate;
 using ResourceServer.Api.Types;
 using HotChocolate.AspNetCore;
 using HotChocolate.AspNetCore.Playground;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ResourceServer.Api
 {
@@ -25,11 +26,19 @@ namespace ResourceServer.Api
 			services.AddControllers();
 
 			services.AddGraphQL(sp => SchemaBuilder.New()
+				//.AddAuthorizeDirectiveType()
 				.AddQueryType<QueryType>()
 				.AddMutationType<MutationType>()
 				.AddType<ToDoItemType>()
 				.Create()
 			);
+
+			//services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
+			//{
+			//	options.Authority = "authServer";
+			//	options.Audience = "reServer";
+			//	options.RequireHttpsMetadata = false;
+			//});
 
 			return ContainerSetup.InitializeApi(Assembly.GetExecutingAssembly(), services);
 		}
@@ -41,6 +50,8 @@ namespace ResourceServer.Api
 				app.UseDeveloperExceptionPage();
 			}
 			app.UseRouting();
+
+			//app.UseAuthentication();
 
 			app.UseWebSockets()
 				.UseGraphQL("/graphql")

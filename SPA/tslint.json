@@ -86,7 +86,11 @@
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,
     "use-pipe-transform-interface": true,
-    "whitespace": [false, "check-module"]
+    "whitespace": [false, "check-module"],
+    "variable-name": [
+      true,
+      "allow-leading-underscore"
+    ]
   },
   "rulesDirectory": [
     "codelyzer"

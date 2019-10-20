@@ -1,0 +1,8 @@
+{
+  "schemaPath": "src/graphql/schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "dev": "http://localhost/api/graphql"
+    }
+  }
+}
