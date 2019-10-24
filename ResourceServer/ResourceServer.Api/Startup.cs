@@ -32,12 +32,13 @@ namespace ResourceServer.Api
 				.AddQueryType<QueryType>()
 				.AddMutationType<MutationType>()
 				.AddType<ToDoItemType>()
-				.Create()
-			, new QueryExecutionOptions
-			{
-				TracingPreference = TracingPreference.OnDemand,
-				IncludeExceptionDetails = true
-			});
+				.Create(),
+				new QueryExecutionOptions
+				{
+					TracingPreference = TracingPreference.OnDemand,
+					IncludeExceptionDetails = true
+				}
+			);
 
 			services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
 			{

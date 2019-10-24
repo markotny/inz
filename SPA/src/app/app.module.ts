@@ -9,6 +9,7 @@ import {ShellModule} from './shell/shell.module';
 import {SharedModule} from '@shared/shared.module';
 import {AppComponent} from './app.component';
 import {GraphQLModule} from './graphql.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -20,7 +21,8 @@ import {GraphQLModule} from './graphql.module';
 		AppRoutingModule,
 		ShellModule,
 		SharedModule,
-		GraphQLModule
+		GraphQLModule,
+		BrowserAnimationsModule
 	],
 	bootstrap: [AppComponent]
 })
