@@ -1,39 +1,28 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
 import {AuthService} from '@core/authentication/auth.service';
-import {Subscription} from 'rxjs';
+import {environment} from '@env/environment';
+import {NavigationBaseComponent} from '@shell/navigation-base/navigation-base.component';
 
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',
 	styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
-	name: string;
-	isAuthenticated: boolean;
-	subscription: Subscription;
+export class HeaderComponent extends NavigationBaseComponent implements OnInit {
+	@Output() sidenavToggle = new EventEmitter();
 
-	constructor(private authService: AuthService) {}
+	appName: string;
+
+	constructor(protected authService: AuthService) {
+		super(authService);
+	}
 
 	ngOnInit() {
-		this.subscription = this.authService.authNavStatus$.subscribe(
-			status => (this.isAuthenticated = status)
-		);
-		this.name = this.authService.name;
+		super.ngOnInit();
+		this.appName = environment.appName;
 	}
 
-	register() {
-		this.authService.register();
-	}
-
-	login() {
-		this.authService.login();
-	}
-
-	signout() {
-		this.authService.signout();
-	}
-
-	ngOnDestroy() {
-		this.subscription.unsubscribe();
+	onToggleSidenav() {
+		this.sidenavToggle.emit();
 	}
 }

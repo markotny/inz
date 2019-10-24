@@ -1,16 +1,37 @@
 <header>
-  <div class="navbar navbar-dark bg-dark box-shadow">
-    <div class="container d-flex justify-content-between">
-      <a routerLink="/" class="navbar-brand d-flex align-items-center">
-        <strong>OAuth Client</strong>
-      </a>
-      <nav *ngIf="!isAuthenticated" class="my-2 my-md-0 mr-md-3">
-        <button class="btn btn-lg btn-primary" (click)="register()">Signup</button>
-        <button class="btn btn-lg btn-primary" (click)="login()">Login</button>
-      </nav>
-      <nav *ngIf="isAuthenticated" class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-light" (click)="signout()" href="#">Signout {{name}}</a>
-      </nav>
+  <mat-toolbar color="primary">
+    <div fxHide.gt-xs>
+      <button mat-icon-button (click)="onToggleSidenav()">
+        <mat-icon>menu</mat-icon>
+      </button>
     </div>
-  </div>
+
+    <h1 class="mat-display-4">{{appName}}</h1>
+
+    <div fxFlex fxLayout="row" fxLayoutGap="10px" fxHide.xs>
+      <button mat-button [matMenuTriggerFor]="exploreMenu">Explore</button>
+
+      <button mat-button routerLink="/home">Add review</button>
+
+      <span fxFlex="grow"></span>
+
+      <div fxFlexAlign="end">
+        <button *ngIf="isAuthenticated else signIn" mat-button [matMenuTriggerFor]="accountMenu">{{userName}}</button>
+        <ng-template #signIn>
+          <button mat-button (click)="register()">Register</button>
+          <button mat-button (click)="login()">Login</button>
+        </ng-template>
+      </div>
+    </div>
+  </mat-toolbar>
+
 </header>
+
+<mat-menu #exploreMenu="matMenu">
+  <button mat-menu-item *ngFor="let link of exploreLinks" routerLink="link.link">{{link.name}}</button>
+</mat-menu>
+
+<mat-menu #accountMenu="matMenu" xPosition="before">
+  <button mat-menu-item *ngFor="let link of accountLinks" routerLink="link.link">{{link.name}}</button>
+  <button mat-menu-item (click)="signout()">Sign out</button>
+</mat-menu>

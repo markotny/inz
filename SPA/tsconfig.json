@@ -17,6 +17,7 @@
 			"@env/*": ["environments/*"],
 			"@gql/*": ["graphql/*"],
 			"@core/*": ["app/core/*"],
+			"@shell/*": ["app/shell/*"],
 			"@shared/*": ["app/shared/*"],
 			"@account/*": ["app/account/*"]
 		}

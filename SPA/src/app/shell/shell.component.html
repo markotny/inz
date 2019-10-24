@@ -1,7 +1,13 @@
-<app-header></app-header>
-
-<main role="main">
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>
-</main>
+<app-header (sidenavToggle)="mainSidenav.toggle()"></app-header>
+<mat-sidenav-container>
+  <mat-sidenav #mainSidenav role="navigation">
+    <app-sidenav (sidenavClose)="mainSidenav.close()"></app-sidenav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <main role="main">
+      <div class="container">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
