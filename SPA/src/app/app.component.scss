@@ -5,7 +5,9 @@
   top: 0;
   bottom: 0;
   left: 0;
-  right: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
 }
 
 .toolbar {
@@ -14,9 +16,6 @@
 }
 
 mat-sidenav-container {
-	height: 100%;
-	width: 100%;
-
 	.wrapper {
 		position: absolute;
 		top: 0;
