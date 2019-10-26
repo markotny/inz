@@ -1,4 +1,4 @@
-<div [class]="'theme-wrapper mat-typography ' + (theme$ | async)">
+<div [class]="'theme-wrapper mat-typography ' + (settings$ | async)?.theme">
 
 
 	<mat-sidenav-container>
@@ -10,8 +10,8 @@
 			<main role="main">
 				<div class="wrapper">
 
-					<header class="toolbar" [style.position]="(stickyHeader$ | async) ? 'fixed' : 'inherit'"
-						[class.mat-elevation-z4]="(stickyHeader$ | async)">
+					<header class="toolbar" [style.position]="(settings$ | async)?.stickyHeader ? 'fixed' : 'inherit'"
+						[class.mat-elevation-z4]="(settings$ | async)?.stickyHeader">
 						<app-header (sidenavToggle)="mainSidenav.toggle()"></app-header>
 					</header>
 

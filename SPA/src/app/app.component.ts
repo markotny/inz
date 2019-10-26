@@ -13,8 +13,7 @@ import {SettingsService} from './modules/settings/settings.service';
 export class AppComponent implements OnInit {
 	title = 'SPA';
 
-	stickyHeader$: Observable<boolean>;
-	theme$: Observable<string>;
+	settings$: Observable<Settings>;
 
 	constructor(
 		private overlayContainer: OverlayContainer,
@@ -25,15 +24,10 @@ export class AppComponent implements OnInit {
 	ngOnInit() {
 		this.settingsService.loadFromLocalStorage().subscribe();
 
-		const settings$ = this.getSettings.watch().valueChanges.pipe(
+		this.settings$ = this.getSettings.watch().valueChanges.pipe(
 			map(res => res.data.settings),
+			tap(settings => this.setOverlayContainerTheme(settings.theme)),
 			share()
-		);
-
-		this.stickyHeader$ = settings$.pipe(pluck('stickyHeader'));
-		this.theme$ = settings$.pipe(
-			pluck('theme'),
-			tap(theme => this.setOverlayContainerTheme(theme))
 		);
 	}
 
