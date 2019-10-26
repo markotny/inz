@@ -25,8 +25,8 @@ export class NavigationBaseComponent implements OnInit, OnDestroy {
 	ngOnInit() {
 		this.subscription = this.authService.authNavStatus$.subscribe(status => {
 			this.isAuthenticated = status;
+			this.userName = this.authService.name;
 		});
-		this.userName = this.authService.name;
 	}
 
 	register() {

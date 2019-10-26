@@ -1,40 +1,38 @@
-<header>
-  <mat-toolbar color="primary">
-    <div fxHide.gt-xs>
-      <button mat-icon-button (click)="onToggleSidenav()">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </div>
+<mat-toolbar color="primary">
+	<div fxHide.gt-xs>
+		<button mat-icon-button (click)="onToggleSidenav()">
+			<mat-icon>menu</mat-icon>
+		</button>
+	</div>
 
-    <h1 class="mat-display-4">{{appName}}</h1>
+	<h1>{{appName}}</h1>
 
-    <div fxFlex fxLayout="row" fxLayoutGap="10px" fxHide.xs>
-      <button mat-button [matMenuTriggerFor]="exploreMenu">Explore</button>
+	<div fxFlex fxLayout="row" fxLayoutGap="10px" fxHide.xs>
+		<button mat-button [matMenuTriggerFor]="exploreMenu">Explore</button>
 
-      <button mat-button routerLink="/home">Add review</button>
+		<button mat-button routerLink="/home" routerLinkActive="active">
+			Add review</button>
 
-      <span fxFlex="grow"></span>
+		<span fxFlex="grow"></span>
 
-      <div fxFlexAlign="end">
-        <button *ngIf="isAuthenticated else signIn" mat-button [matMenuTriggerFor]="accountMenu">
-          {{userName}}</button>
-        <ng-template #signIn>
-          <button mat-button (click)="register()">Register</button>
-          <button mat-button (click)="login()">Login</button>
-        </ng-template>
-      </div>
-    </div>
-  </mat-toolbar>
-
-</header>
+		<div fxFlexAlign="end">
+			<button *ngIf="isAuthenticated else signIn" mat-button [matMenuTriggerFor]="accountMenu">
+				{{userName}}</button>
+			<ng-template #signIn>
+				<button mat-button (click)="register()">Register</button>
+				<button mat-button (click)="login()">Login</button>
+			</ng-template>
+		</div>
+	</div>
+</mat-toolbar>
 
 <mat-menu class="toolbar-menu" #exploreMenu="matMenu">
-  <button mat-menu-item *ngFor="let link of exploreLinks" [routerLink]="link.route" routerLinkActive="active">
-    {{link.name}}</button>
+	<button mat-menu-item *ngFor="let link of exploreLinks" [routerLink]="link.route" routerLinkActive="active">
+		{{link.name}}</button>
 </mat-menu>
 
 <mat-menu class="toolbar-menu" #accountMenu="matMenu" xPosition="before">
-  <button mat-menu-item *ngFor="let link of accountLinks" [routerLink]="link.route" routerLinkActive="active">
-    {{link.name}}</button>
-  <button mat-menu-item (click)="signout()">Sign out</button>
+	<button mat-menu-item *ngFor="let link of accountLinks" [routerLink]="link.route" routerLinkActive="active">
+		{{link.name}}</button>
+	<button mat-menu-item (click)="signout()">Sign out</button>
 </mat-menu>

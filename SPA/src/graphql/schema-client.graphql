@@ -3,9 +3,15 @@ extend type Query {
 }
 
 extend type Mutation {
-	setTheme(input: String): Settings
+	updateSettings(input: SettingsInput): Settings
 }
 
 type Settings {
+	theme: String!
+	stickyHeader: Boolean!
+}
+
+input SettingsInput {
 	theme: String
+	stickyHeader: Boolean
 }

@@ -15,7 +15,8 @@ import {
 	MatExpansionModule,
 	MatButtonModule,
   MatIconModule,
-  MatSelectModule
+	MatSelectModule,
+	MatSlideToggleModule
 } from '@angular/material';
 
 import {AutoFocusDirective} from './directives/auto-focus.directive';
@@ -35,10 +36,12 @@ import {AutoFocusDirective} from './directives/auto-focus.directive';
     MatExpansionModule,
     MatButtonModule,
     MatIconModule,
-    MatSelectModule
+		MatSelectModule,
+		MatSlideToggleModule
 	],
 	declarations: [AutoFocusDirective],
 	exports: [
+		AutoFocusDirective,
 		CommonModule,
 		NgxSpinnerModule,
 		FormsModule,
@@ -53,7 +56,7 @@ import {AutoFocusDirective} from './directives/auto-focus.directive';
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
-		AutoFocusDirective
+		MatSlideToggleModule
 	]
 })
 export class SharedModule {}

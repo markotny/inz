@@ -1,9 +1,14 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 import {AuthCallbackComponent} from '@core/authentication/auth-callback/auth-callback.component';
 import {AuthAction} from '@core/authentication/auth-callback/auth-action.enum';
 
 const routes: Routes = [
+	{
+		path: '',
+		redirectTo: 'home',
+		pathMatch: 'full'
+	},
 	{path: 'login-callback', component: AuthCallbackComponent, data: {action: AuthAction.Login}},
 	{
 		path: 'register-callback',
@@ -15,11 +20,24 @@ const routes: Routes = [
 		component: AuthCallbackComponent,
 		data: {action: AuthAction.SilentRefresh}
 	},
-	{path: '**', redirectTo: '', pathMatch: 'full'}
+	{
+		path: 'home',
+		loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+	},
+	{
+		path: 'settings',
+		loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule)
+	},
+	{path: '**', redirectTo: 'home', pathMatch: 'full'}
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes)],
+	imports: [
+		RouterModule.forRoot(routes, {
+			scrollPositionRestoration: 'enabled',
+			preloadingStrategy: PreloadAllModules
+		})
+	],
 	exports: [RouterModule]
 })
 export class AppRoutingModule {}

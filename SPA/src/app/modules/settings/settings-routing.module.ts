@@ -1,14 +1,8 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {Shell} from '@shell/shell.service';
-import { SettingsComponent } from './settings.component';
+import {SettingsComponent} from './component/settings.component';
 
-const routes: Routes = [
-  Shell.childRoutes([
-		{path: '', redirectTo: '/settings', pathMatch: 'full'},
-    {path: 'settings', component: SettingsComponent}
-  ])
-];
+const routes: Routes = [{path: '', component: SettingsComponent}];
 
 @NgModule({
 	imports: [RouterModule.forChild(routes)],

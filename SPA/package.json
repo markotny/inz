@@ -34,6 +34,7 @@
     "apollo-link-context": "^1.0.19",
     "graphql": "^14.5.0",
     "graphql-tag": "^2.10.0",
+    "hammerjs": "^2.0.8",
     "ngx-spinner": "^8.0.3",
     "oidc-client": "^1.9.1",
     "rxjs": "~6.4.0",

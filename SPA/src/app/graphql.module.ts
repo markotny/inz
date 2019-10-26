@@ -7,6 +7,7 @@ import {AuthService} from '@core/authentication/auth.service';
 import {ApolloLink} from 'apollo-link';
 import {resolvers} from '@gql/resolvers';
 import {Settings} from '@gql/types.graphql-gen';
+import {SettingsService} from './modules/settings/settings.service';
 
 const uri = 'api/graphql';
 
@@ -15,7 +16,10 @@ const uri = 'api/graphql';
 	providers: [
 		{
 			provide: APOLLO_OPTIONS,
-			useFactory: (httpLink: HttpLink, authService: AuthService) => {
+			useFactory: (
+				httpLink: HttpLink,
+				authService: AuthService
+			) => {
 				const auth = authService.isAuthenticated
 					? setContext((_operation, _context) => ({
 							headers: {
@@ -25,11 +29,13 @@ const uri = 'api/graphql';
 					: null;
 
 				const cache = new InMemoryCache();
-				const settings = {
+
+				const defaultSettings = {
 					__typename: 'Settings',
-					theme: 'light-theme'
+					theme: 'light-theme',
+					stickyHeader: true
 				} as Settings;
-				cache.writeData({data: {settings}});
+				cache.writeData({data: {settings: defaultSettings}});
 
 				return {
 					link: ApolloLink.from([auth, httpLink.create({uri})]),

@@ -1,11 +1,13 @@
 query getSettings {
 	settings @client {
-		theme
+		theme,
+		stickyHeader
 	}
 }
 
-mutation setTheme($theme: String) {
-	setTheme(input: $theme) @client {
-		theme
+mutation updateSettings($settings: SettingsInput) {
+	updateSettings(input: $settings) @client {
+		theme,
+		stickyHeader
 	}
 }

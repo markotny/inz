@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter, OnDestroy} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {AuthService} from '@core/authentication/auth.service';
 import {NavigationBaseComponent} from '@shell/navigation-base/navigation-base.component';
 
