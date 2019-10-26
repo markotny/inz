@@ -9,8 +9,8 @@ RUN apt-get update \
     && curl -sSL https://aka.ms/getvsdbgsh \
         | bash /dev/stdin -v latest -l /vsdbg
 
-ENV DOTNET_USE_POLLING_FILE_WATCHER 1
+ENV DOTNET_USE_POLLING_FILE_WATCHER ${ENABLE_POLLING:-0}
 
 WORKDIR /app/ResourceServer.Api
 
-ENTRYPOINT dotnet watch run --urls=http://+:80
+ENTRYPOINT dotnet ${ENABLE_POLLING:+watch} run --urls=http://+:80

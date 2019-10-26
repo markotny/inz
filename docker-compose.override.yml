@@ -12,6 +12,7 @@ services:
 
   authserver:
     environment:
+      # - ENABLE_POLLING=1
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__DefaultConnection=Server=mainDB;Port=5432;Database=AuthServerDB;User Id=postgres;Password=admin
@@ -22,6 +23,7 @@ services:
 
   reserver:
     environment:
+      # - ENABLE_POLLING=1
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__DefaultConnection=Server=mainDB;Port=5432;Database=ReServerDB;User Id=postgres;Password=admin
