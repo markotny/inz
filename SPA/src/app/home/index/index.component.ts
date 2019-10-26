@@ -15,7 +15,6 @@ export class IndexComponent implements OnInit {
 
 	ngOnInit() {
 		this.item = this.getToDo.watch({id: this.selId}).valueChanges.pipe(
-			tap(res => console.log(res)),
 			map(res => res.data.toDoItem)
 		);
 	}

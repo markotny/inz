@@ -1,18 +1,17 @@
 <div [class]="'theme-wrapper mat-typography ' + (settings$ | async)?.theme">
 
+	<app-header class="toolbar" [style.position]="(settings$ | async)?.stickyHeader ? 'fixed' : 'inherit'"
+		[class.mat-elevation-z4]="(settings$ | async)?.stickyHeader" (sidenavToggle)="mainSidenav.toggle()">
+	</app-header>
 
-	<mat-sidenav-container>
-		<mat-sidenav #mainSidenav role="navigation">
+	<mat-sidenav-container fxFlex style.marginTop="0" fxFlex.xs="noshrink" ngStyle.xs="marginTop: 64px">
+		<mat-sidenav #mainSidenav role="navigation" [mode]="(sizeBreakpoint$ | async) == 'xs' ? 'over' : 'side'"
+			[fixedInViewport]="(sizeBreakpoint$ | async) == 'xs'">
 			<app-sidenav (sidenavClose)="mainSidenav.close()"></app-sidenav>
 		</mat-sidenav>
 
 		<mat-sidenav-content>
 			<main role="main" class="wrapper">
-
-				<header class="toolbar" [style.position]="(settings$ | async)?.stickyHeader ? 'fixed' : 'inherit'"
-					[class.mat-elevation-z4]="(settings$ | async)?.stickyHeader">
-					<app-header (sidenavToggle)="mainSidenav.toggle()"></app-header>
-				</header>
 
 				<div class="content">
 					<router-outlet></router-outlet>
