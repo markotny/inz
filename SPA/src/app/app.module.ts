@@ -10,6 +10,7 @@ import {ShellModule} from './shell/shell.module';
 import {SharedModule} from '@shared/shared.module';
 import {AppComponent} from './app.component';
 import {GraphQLModule} from './graphql.module';
+import {SettingsModule} from './modules/settings/settings.module';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -19,6 +20,7 @@ import {GraphQLModule} from './graphql.module';
 		BrowserAnimationsModule,
 		CoreModule,
 		HomeModule,
+		SettingsModule,
 		AppRoutingModule,
 		ShellModule,
 		SharedModule,

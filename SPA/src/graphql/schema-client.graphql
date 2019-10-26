@@ -1,0 +1,11 @@
+extend type Query {
+	settings: Settings
+}
+
+extend type Mutation {
+	setTheme(input: String): Settings
+}
+
+type Settings {
+	theme: String
+}

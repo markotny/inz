@@ -1,0 +1,11 @@
+query getSettings {
+	settings @client {
+		theme
+	}
+}
+
+mutation setTheme($theme: String) {
+	setTheme(input: $theme) @client {
+		theme
+	}
+}

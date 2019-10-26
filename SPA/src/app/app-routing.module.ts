@@ -15,7 +15,6 @@ const routes: Routes = [
 		component: AuthCallbackComponent,
 		data: {action: AuthAction.SilentRefresh}
 	},
-	// Fallback when no prior route is matched
 	{path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 

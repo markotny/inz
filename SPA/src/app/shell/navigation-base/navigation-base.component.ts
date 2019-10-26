@@ -9,12 +9,12 @@ import {Subscription} from 'rxjs';
 })
 export class NavigationBaseComponent implements OnInit, OnDestroy {
 	exploreLinks = [
-		{name: 'New', link: '/home'},
-		{name: 'Top', link: '/home'},
-		{name: 'Weekly', link: '/home'}
+		{name: 'New', route: '/home'},
+		{name: 'Top', route: '/home'},
+		{name: 'Weekly', route: '/home'}
 	];
 
-	accountLinks = [{name: 'Profile', link: '/home'}, {name: 'Settings', link: '/home'}];
+	accountLinks = [{name: 'Profile', route: '/home'}, {name: 'Settings', route: '/settings'}];
 
 	userName: string;
 	isAuthenticated: boolean;

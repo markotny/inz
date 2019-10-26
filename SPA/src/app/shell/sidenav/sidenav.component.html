@@ -5,18 +5,17 @@
 				<mat-panel-title>Explore</mat-panel-title>
 			</mat-expansion-panel-header>
 
-			<mat-nav-list>
-				<mat-list-item *ngFor="let link of exploreLinks">
-					<a routerLink="link.link" (click)="onSidenavClose()">
-						{{link.name}}</a>
-				</mat-list-item>
-			</mat-nav-list>
+			<mat-action-list>
+				<button mat-list-item *ngFor="let link of exploreLinks" [routerLink]="link.route"
+					routerLinkActive="active" (click)="onSidenavClose()">
+					{{link.name}}</button>
+			</mat-action-list>
 		</mat-expansion-panel>
 
 		<mat-divider fxFlexFill></mat-divider>
 
 		<mat-nav-list>
-			<a mat-list-item routerLink="/home" (click)="onSidenavClose()">
+			<a mat-list-item routerLink="/home" routerLinkActive="active" (click)="onSidenavClose()">
 				Add review</a>
 		</mat-nav-list>
 
@@ -28,8 +27,8 @@
 			</mat-expansion-panel-header>
 
 			<mat-action-list>
-				<button mat-list-item *ngFor="let link of accountLinks" routerLink="link.link"
-					(click)="onSidenavClose()">
+				<button mat-list-item *ngFor="let link of accountLinks" [routerLink]="link.route"
+					routerLinkActive="active" (click)="onSidenavClose()">
 					{{link.name}}</button>
 				<button mat-list-item (click)="signout()">Sign out</button>
 			</mat-action-list>

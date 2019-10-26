@@ -1,0 +1,7 @@
+<mat-form-field>
+	<mat-select [ngModel]="(settings$ | async)?.theme" (selectionChange)="onThemeSelect($event)" name="themes">
+		<mat-option *ngFor="let theme of themes" [value]="theme.value">
+			{{ theme.label }}
+		</mat-option>
+	</mat-select>
+</mat-form-field>

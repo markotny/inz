@@ -16,7 +16,8 @@
       <span fxFlex="grow"></span>
 
       <div fxFlexAlign="end">
-        <button *ngIf="isAuthenticated else signIn" mat-button [matMenuTriggerFor]="accountMenu">{{userName}}</button>
+        <button *ngIf="isAuthenticated else signIn" mat-button [matMenuTriggerFor]="accountMenu">
+          {{userName}}</button>
         <ng-template #signIn>
           <button mat-button (click)="register()">Register</button>
           <button mat-button (click)="login()">Login</button>
@@ -27,11 +28,13 @@
 
 </header>
 
-<mat-menu #exploreMenu="matMenu">
-  <button mat-menu-item *ngFor="let link of exploreLinks" routerLink="link.link">{{link.name}}</button>
+<mat-menu class="toolbar-menu" #exploreMenu="matMenu">
+  <button mat-menu-item *ngFor="let link of exploreLinks" [routerLink]="link.route" routerLinkActive="active">
+    {{link.name}}</button>
 </mat-menu>
 
-<mat-menu #accountMenu="matMenu" xPosition="before">
-  <button mat-menu-item *ngFor="let link of accountLinks" routerLink="link.link">{{link.name}}</button>
+<mat-menu class="toolbar-menu" #accountMenu="matMenu" xPosition="before">
+  <button mat-menu-item *ngFor="let link of accountLinks" [routerLink]="link.route" routerLinkActive="active">
+    {{link.name}}</button>
   <button mat-menu-item (click)="signout()">Sign out</button>
 </mat-menu>

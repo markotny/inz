@@ -23,17 +23,6 @@ export class AuthService extends BaseService {
 		return `${this.user.token_type} ${this.user.access_token}`;
 	}
 
-	get authorizationHeader() {
-		if (!this.isAuthenticated()) {
-			return null;
-		}
-		return {
-			headers: {
-				Authorization: this.authorizationHeaderValue
-			}
-		};
-	}
-
 	get name(): string {
 		return this.user != null ? this.user.profile.name : '';
 	}
