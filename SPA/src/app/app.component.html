@@ -7,25 +7,23 @@
 		</mat-sidenav>
 
 		<mat-sidenav-content>
-			<main role="main">
-				<div class="wrapper">
+			<main role="main" class="wrapper">
 
-					<header class="toolbar" [style.position]="(settings$ | async)?.stickyHeader ? 'fixed' : 'inherit'"
-						[class.mat-elevation-z4]="(settings$ | async)?.stickyHeader">
-						<app-header (sidenavToggle)="mainSidenav.toggle()"></app-header>
-					</header>
+				<header class="toolbar" [style.position]="(settings$ | async)?.stickyHeader ? 'fixed' : 'inherit'"
+					[class.mat-elevation-z4]="(settings$ | async)?.stickyHeader">
+					<app-header (sidenavToggle)="mainSidenav.toggle()"></app-header>
+				</header>
 
-					<div class="content">
-						<router-outlet></router-outlet>
-					</div>
-
-					<div class="footer">
-						<div class="row">
-							taki se tam footer
-						</div>
-					</div>
-
+				<div class="content">
+					<router-outlet></router-outlet>
 				</div>
+
+				<div class="footer">
+					<div class="row">
+						taki se tam footer
+					</div>
+				</div>
+
 			</main>
 		</mat-sidenav-content>
 	</mat-sidenav-container>
