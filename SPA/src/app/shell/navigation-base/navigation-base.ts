@@ -2,16 +2,11 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AuthService} from '@core/authentication/auth.service';
 import {Subscription} from 'rxjs';
 
-@Component({
-	selector: 'app-navigation-base',
-	template: '',
-	styles: []
-})
-export class NavigationBaseComponent implements OnInit, OnDestroy {
+export class NavigationBase implements OnInit, OnDestroy {
 	exploreLinks = [
 		{name: 'New', route: '/home'},
-		{name: 'Top', route: '/home'},
-		{name: 'Weekly', route: '/home'}
+		{name: 'Top', route: '/explore'},
+		{name: 'Genres', route: '/home'}
 	];
 
 	accountLinks = [{name: 'Profile', route: '/home'}, {name: 'Settings', route: '/settings'}];

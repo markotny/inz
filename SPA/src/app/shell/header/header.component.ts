@@ -1,14 +1,14 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {AuthService} from '@core/authentication/auth.service';
 import {environment} from '@env/environment';
-import {NavigationBaseComponent} from '@shell/navigation-base/navigation-base.component';
+import {NavigationBase} from '@shell/navigation-base/navigation-base';
 
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',
 	styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent extends NavigationBaseComponent implements OnInit {
+export class HeaderComponent extends NavigationBase implements OnInit {
 	@Output() sidenavToggle = new EventEmitter();
 
 	appName: string;

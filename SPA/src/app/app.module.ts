@@ -8,9 +8,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {AppRoutingModule} from './app-routing.module';
 import {CoreModule} from '@core/core.module';
 import {GraphQLModule} from './graphql.module';
-import {HomeModule} from './home/home.module';
 import {SharedModule} from '@shared/shared.module';
-import {SettingsModule} from './modules/settings/settings.module';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from '@shell/header/header.component';
@@ -25,8 +23,6 @@ import {SidenavComponent} from '@shell/sidenav/sidenav.component';
 		BrowserAnimationsModule,
 		FlexLayoutModule,
 		CoreModule,
-		HomeModule,
-		SettingsModule,
 		AppRoutingModule,
 		SharedModule,
 		GraphQLModule
