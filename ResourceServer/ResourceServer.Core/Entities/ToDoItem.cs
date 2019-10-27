@@ -3,7 +3,7 @@ using ResourceServer.Core.SharedKernel;
 
 namespace ResourceServer.Core.Entities
 {
-    public class ToDoItem : BaseEntity
+    public class ToDoItem : BaseEntity<int>
     {
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; }

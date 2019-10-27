@@ -14,7 +14,22 @@ namespace ResourceServer.Api
 
 		public ToDoItem GetToDoItem(int id)
 		{
-			return _repository.GetById<ToDoItem>(id);
+			return _repository.GetById<ToDoItem, int>(id);
+		}
+
+		public Album GetAlbum(string id)
+		{
+			return _repository.GetById<Album, string>(id);
+		}
+
+		public Artist GetArtist(string id)
+		{
+			return _repository.GetById<Artist, string>(id);
+		}
+
+		public Song GetSong(string id)
+		{
+			return _repository.GetById<Song, string>(id);
 		}
 	}
 }

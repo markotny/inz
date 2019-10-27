@@ -24,15 +24,15 @@ namespace ResourceServer.Infrastructure.Data
         }
 
         public DbSet<ToDoItem> ToDoItems { get; set; }
+		public DbSet<Artist> Artists { get; set; }
+		public DbSet<Album> Albums { get; set; }
+		public DbSet<Song> Songs { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyAllConfigurationsFromCurrentAssembly();
-
-            // alternately this is built-in to EF Core 2.2
-            //modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
         public override int SaveChanges()
@@ -45,7 +45,7 @@ namespace ResourceServer.Infrastructure.Data
             // dispatch events only if save was successful
             var entitiesWithEvents = ChangeTracker.Entries<BaseEntity>()
                 .Select(e => e.Entity)
-                .Where(e => e.Events.Any())
+                .Where(e => e.Events.Count > 0)
                 .ToArray();
 
             foreach (var entity in entitiesWithEvents)

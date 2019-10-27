@@ -6,45 +6,45 @@ using System.Linq;
 
 namespace ResourceServer.Infrastructure.Data
 {
-    public class EfRepository : IRepository
-    {
-        private readonly AppDbContext _dbContext;
+	public class EfRepository : IRepository
+	{
+		private readonly AppDbContext _dbContext;
 
-        public EfRepository(AppDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+		public EfRepository(AppDbContext dbContext)
+		{
+			_dbContext = dbContext;
+		}
 
-        public T GetById<T>(int id) where T : BaseEntity
-        {
-            return _dbContext.Set<T>().SingleOrDefault(e => e.Id == id);
-        }
+		public T GetById<T, TId>(TId id) where T : BaseEntity<TId>
+		{
+			return _dbContext.Set<T>().SingleOrDefault(e => EqualityComparer<TId>.Default.Equals(e.Id, id));
+		}
 
-        public List<T> List<T>() where T : BaseEntity
-        {
-            return _dbContext.Set<T>().ToList();
-        }
+		public List<T> List<T>() where T : BaseEntity
+		{
+			return _dbContext.Set<T>().ToList();
+		}
 
-        public T Add<T>(T entity) where T : BaseEntity
-        {
-            _dbContext.Set<T>().Add(entity);
-            _dbContext.SaveChanges();
-
-            return entity;
-        }
-
-        public void Delete<T>(T entity) where T : BaseEntity
-        {
-            _dbContext.Set<T>().Remove(entity);
-            _dbContext.SaveChanges();
-        }
-
-        public T Update<T>(T entity) where T : BaseEntity
-        {
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+		public T Add<T>(T entity) where T : BaseEntity
+		{
+			_dbContext.Set<T>().Add(entity);
+			_dbContext.SaveChanges();
 
 			return entity;
-        }
-    }
+		}
+
+		public void Delete<T>(T entity) where T : BaseEntity
+		{
+			_dbContext.Set<T>().Remove(entity);
+			_dbContext.SaveChanges();
+		}
+
+		public T Update<T>(T entity) where T : BaseEntity
+		{
+			_dbContext.Entry(entity).State = EntityState.Modified;
+			_dbContext.SaveChanges();
+
+			return entity;
+		}
+	}
 }

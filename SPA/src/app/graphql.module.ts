@@ -32,7 +32,7 @@ const uri = 'api/graphql';
 
 				const defaultSettings = {
 					__typename: 'Settings',
-					theme: 'light-theme',
+					theme: 'dark-theme',
 					stickyHeader: true
 				} as Settings;
 				cache.writeData({data: {settings: defaultSettings}});

@@ -9,9 +9,8 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.0" />
     <PackageReference Include="Ardalis.EFCore.Extensions" Version="1.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0" />
-    <PackageReference Include="SQLite" Version="3.13.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.0.1" />
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
   </ItemGroup>
   

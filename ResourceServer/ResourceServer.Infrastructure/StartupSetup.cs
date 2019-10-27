@@ -6,8 +6,11 @@ namespace ResourceServer.Infrastructure
 {
 	public static class StartupSetup
 	{
-		public static void AddDbContext(this IServiceCollection services) =>
+		public static void AddDbContext(this IServiceCollection services, string connectionString) =>
 			services.AddDbContext<AppDbContext>(options =>
-				options.UseSqlite("Data Source=database.sqlite")); // will be created in web project root
+			{
+				options.UseLazyLoadingProxies();
+				options.UseNpgsql(connectionString);
+			});
 	}
 }

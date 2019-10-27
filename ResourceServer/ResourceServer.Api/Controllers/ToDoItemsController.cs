@@ -28,7 +28,7 @@ namespace ResourceServer.Api.Api
         [HttpGet("{id:int}")]
         public IActionResult GetById(int id)
         {
-            var item = ToDoItemDTO.FromToDoItem(_repository.GetById<ToDoItem>(id));
+            var item = ToDoItemDTO.FromToDoItem(_repository.GetById<ToDoItem, int>(id));
             return Ok(item);
         }
 
@@ -48,7 +48,7 @@ namespace ResourceServer.Api.Api
         [HttpPatch("{id:int}/complete")]
         public IActionResult Complete(int id)
         {
-            var toDoItem = _repository.GetById<ToDoItem>(id);
+            var toDoItem = _repository.GetById<ToDoItem, int>(id);
             toDoItem.MarkComplete();
             _repository.Update(toDoItem);
 

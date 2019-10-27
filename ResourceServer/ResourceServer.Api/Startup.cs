@@ -23,15 +23,20 @@ namespace ResourceServer.Api
 
 		public IServiceProvider ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext();
+			services.AddDbContext(
+				Configuration.GetConnectionString("DefaultConnection"));
 
 			services.AddControllers();
 
 			services.AddGraphQL(sp => SchemaBuilder.New()
+				//.AddServices(sp)
 				.AddAuthorizeDirectiveType()
 				.AddQueryType<QueryType>()
 				.AddMutationType<MutationType>()
 				.AddType<ToDoItemType>()
+				.AddType<ArtistType>()
+				.AddType<AlbumType>()
+				.AddType<SongType>()
 				.Create(),
 				new QueryExecutionOptions
 				{
