@@ -16,7 +16,7 @@
 		<span fxFlex="grow"></span>
 
 		<div fxFlexAlign="end">
-			<button *ngIf="isAuthenticated else signIn" mat-button [matMenuTriggerFor]="accountMenu">
+			<button *ngIf="(isAuthenticated$ | async) else signIn" mat-button [matMenuTriggerFor]="accountMenu">
 				{{userName}}</button>
 			<ng-template #signIn>
 				<button mat-button (click)="register()">Register</button>
