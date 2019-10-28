@@ -4,7 +4,7 @@ namespace ResourceServer.Core.SharedKernel
 {
     public abstract class BaseEntity<TId> : BaseEntity
     {
-        public TId Id { get; set; }
+		public TId Id { get; set; } = default!;
     }
 
 	public abstract class BaseEntity

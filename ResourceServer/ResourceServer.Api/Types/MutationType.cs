@@ -10,17 +10,16 @@ namespace ResourceServer.Api.Types
 	{
 		protected override void Configure(IObjectTypeDescriptor<Mutation> descriptor)
 		{
-
-			descriptor.Field(t => t.AddArtist(default))
+			descriptor.Field(t => t.AddArtist(default!))
 				.Argument("artist", a => a.Type<NonNullType<ArtistInputType>>())
 				.Type<NonNullType<ArtistType>>();
 
-			descriptor.Field(t => t.AddAlbum(default, default))
+			descriptor.Field(t => t.AddAlbum(default!, default))
 				.Argument("album", a => a.Type<NonNullType<AlbumInputType>>())
 				.Argument("artistId", a => a.Type<NonNullType<UuidType>>())
 				.Type<NonNullType<AlbumType>>();
 
-			descriptor.Field(t => t.AddSong(default, default, default))
+			descriptor.Field(t => t.AddSong(default!, default, default))
 				.Argument("song", a => a.Type<NonNullType<SongInputType>>())
 				.Argument("albumId", a => a.Type<NonNullType<UuidType>>())
 				.Argument("artistId", a => a.Type<NonNullType<UuidType>>())

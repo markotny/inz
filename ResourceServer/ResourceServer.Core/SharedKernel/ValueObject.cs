@@ -8,8 +8,8 @@ namespace ResourceServer.Core.SharedKernel
     // source: https://github.com/jhewlett/ValueObject
     public abstract class ValueObject : IEquatable<ValueObject>
     {
-        private List<PropertyInfo> _properties;
-        private List<FieldInfo> _fields;
+        private List<PropertyInfo>? _properties;
+        private List<FieldInfo>? _fields;
 
         public static bool operator ==(ValueObject obj1, ValueObject obj2)
         {
@@ -68,7 +68,7 @@ namespace ResourceServer.Core.SharedKernel
         {
             var currentHash = value?.GetHashCode() ?? 0;
 
-            return seed * 23 + currentHash;
+            return (seed * 23) + currentHash;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace ResourceServer.Infrastructure
 				setupAction.RegisterAssemblyTypes(webAssembly).AsImplementedInterfaces();
 			}));
 
-		public static IContainer BaseAutofacInitialization(Action<ContainerBuilder> setupAction = null)
+		public static IContainer BaseAutofacInitialization(Action<ContainerBuilder> setupAction = null!)
 		{
 			var builder = new ContainerBuilder();
 
