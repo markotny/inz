@@ -10,14 +10,21 @@ namespace ResourceServer.Api.Types
 	{
 		protected override void Configure(IObjectTypeDescriptor<Mutation> descriptor)
 		{
-			descriptor.Field(t => t.AddToDoItem(default))
-				.Argument("input", a => a.Type<CreateToDoItemInput>())
-				.Type<NonNullType<ToDoItemType>>();
 
-			descriptor.Field(t => t.UpdateToDoItem(default))
-				.Argument("input", a => a.Type<UpdateToDoItemInput>())
-				.Type<NonNullType<ToDoItemType>>();
+			descriptor.Field(t => t.AddArtist(default))
+				.Argument("artist", a => a.Type<NonNullType<ArtistInputType>>())
+				.Type<NonNullType<ArtistType>>();
 
+			descriptor.Field(t => t.AddAlbum(default, default))
+				.Argument("album", a => a.Type<NonNullType<AlbumInputType>>())
+				.Argument("artistId", a => a.Type<NonNullType<UuidType>>())
+				.Type<NonNullType<AlbumType>>();
+
+			descriptor.Field(t => t.AddSong(default, default, default))
+				.Argument("song", a => a.Type<NonNullType<SongInputType>>())
+				.Argument("albumId", a => a.Type<NonNullType<UuidType>>())
+				.Argument("artistId", a => a.Type<NonNullType<UuidType>>())
+				.Type<NonNullType<SongType>>();
 		}
 	}
 }

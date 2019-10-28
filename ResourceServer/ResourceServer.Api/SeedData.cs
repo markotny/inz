@@ -9,43 +9,27 @@ namespace ResourceServer.Api
 {
     public static class SeedData
     {
-        public static readonly ToDoItem ToDoItem1 = new ToDoItem
-        {
-            Title = "Get Sample Working",
-            Description = "Try to get the sample to build."
-        };
-        public static readonly ToDoItem ToDoItem2 = new ToDoItem
-        {
-            Title = "Review Solution",
-            Description = "Review the different projects in the solution and how they relate to one another."
-        };
-        public static readonly ToDoItem ToDoItem3 = new ToDoItem
-        {
-            Title = "Run and Review Tests",
-            Description = "Make sure all the tests run and review what they are doing."
-        };
-
 		public static readonly Artist Artist1 = new Artist
 		{
-			Id = "artist1",
+			Id = new Guid("a0000000-0000-0000-0000-000000000001"),
 			Name = "Artist 1"
 		};
 
 		public static readonly Artist Artist2 = new Artist
 		{
-			Id = "artist2",
+			Id = new Guid("a0000000-0000-0000-0000-000000000002"),
 			Name = "Artist 2"
 		};
 
 		public static readonly Artist Artist3 = new Artist
 		{
-			Id = "artist3",
+			Id = new Guid("a0000000-0000-0000-0000-000000000003"),
 			Name = "Artist 3"
 		};
 
 		public static readonly Album Album1 = new Album
 		{
-			Id = "album1",
+			Id = new Guid("b0000000-0000-0000-0000-000000000001"),
 			Title = "Album 1",
 			AlbumArtist = Artist1,
 			ReleaseDate = new DateTime()
@@ -53,7 +37,7 @@ namespace ResourceServer.Api
 
 		public static readonly Album Album2 = new Album
 		{
-			Id = "album2",
+			Id = new Guid("b0000000-0000-0000-0000-000000000002"),
 			Title = "Album 2",
 			AlbumArtist = Artist2,
 			ReleaseDate = new DateTime()
@@ -61,7 +45,7 @@ namespace ResourceServer.Api
 
 		public static readonly Song Song1 = new Song
 		{
-			Id = "song1",
+			Id = new Guid("c0000000-0000-0000-0000-000000000001"),
 			Title = "Song 1",
 			Album = Album1,
 			Artist = Artist1,
@@ -70,7 +54,7 @@ namespace ResourceServer.Api
 
 		public static readonly Song Song2 = new Song
 		{
-			Id = "song2",
+			Id = new Guid("c0000000-0000-0000-0000-000000000002"),
 			Title = "Song 2",
 			Album = Album1,
 			Artist = Artist1,
@@ -79,7 +63,7 @@ namespace ResourceServer.Api
 
 		public static readonly Song Song3 = new Song
 		{
-			Id = "song3",
+			Id = new Guid("c0000000-0000-0000-0000-000000000003"),
 			Title = "Song 3",
 			Album = Album1,
 			Artist = Artist1,
@@ -88,7 +72,7 @@ namespace ResourceServer.Api
 
 		public static readonly Song Song4 = new Song
 		{
-			Id = "song4",
+			Id = new Guid("c0000000-0000-0000-0000-000000000004"),
 			Title = "Song 4",
 			Album = Album2,
 			Artist = Artist2,
@@ -97,7 +81,7 @@ namespace ResourceServer.Api
 
 		public static readonly Song Song5 = new Song
 		{
-			Id = "song5",
+			Id = new Guid("c0000000-0000-0000-0000-000000000005"),
 			Title = "Song 5",
 			Album = Album2,
 			Artist = Artist3,
@@ -109,20 +93,15 @@ namespace ResourceServer.Api
             using var dbContext = new AppDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null);
             // Look for any TODO items.
-            if (dbContext.ToDoItems.Any())
-            {
-                return;   // DB has been seeded
-            }
+            //if (dbContext.Songs.Any())
+            //{
+            //    return;   // DB has been seeded
+            //}
 
             PopulateTestData(dbContext);
         }
         public static void PopulateTestData(AppDbContext dbContext)
         {
-            foreach (var item in dbContext.ToDoItems)
-            {
-                dbContext.Remove(item);
-            }
-
 			foreach (var item in dbContext.Songs)
 			{
 				dbContext.Remove(item);
@@ -136,9 +115,6 @@ namespace ResourceServer.Api
 				dbContext.Remove(item);
 			}
             dbContext.SaveChanges();
-            dbContext.ToDoItems.Add(ToDoItem1);
-            dbContext.ToDoItems.Add(ToDoItem2);
-            dbContext.ToDoItems.Add(ToDoItem3);
 
 			dbContext.Artists.Add(Artist1);
 			dbContext.Artists.Add(Artist1);

@@ -10,8 +10,8 @@ namespace ResourceServer.Infrastructure.Data.Config
 		{
 			//builder.HasOne(t => t.Artist);
 
-			builder.Property(t => t.Title)
-				.IsRequired();
+			//builder.Property(t => t.Title)
+			//	.IsRequired();
 
 			//builder.Property(t => t.Artist)
 			//	.IsRequired();

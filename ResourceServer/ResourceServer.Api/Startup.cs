@@ -33,7 +33,6 @@ namespace ResourceServer.Api
 				.AddAuthorizeDirectiveType()
 				.AddQueryType<QueryType>()
 				.AddMutationType<MutationType>()
-				.AddType<ToDoItemType>()
 				.AddType<ArtistType>()
 				.AddType<AlbumType>()
 				.AddType<SongType>()

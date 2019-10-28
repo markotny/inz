@@ -1,5 +1,5 @@
 # source: http://localhost/api/graphql
-# timestamp: Sun Oct 20 2019 16:02:47 GMT+0200 (GMT+02:00)
+# timestamp: Mon Oct 28 2019 21:08:33 GMT+0100 (GMT+01:00)
 
 """The cost directives is used to express the complexity of a field."""
 directive @cost(
@@ -10,10 +10,48 @@ directive @cost(
   multipliers: [MultiplierPath!]
 ) on FIELD_DEFINITION
 
-input CreateToDoItemInput {
-  description: String
-  title: String
+directive @authorize(
+  """
+  The name of the authorization policy that determines access to the annotated resource.
+  """
+  policy: String
+
+  """Roles that are allowed to access to the annotated resource."""
+  roles: [String!]
+) on OBJECT | FIELD_DEFINITION
+
+type Album {
+  albumArtist: Artist!
+  id: Uuid!
+  releaseDate: DateTime
+  songs: [Song!]!
+  title: String!
 }
+
+input AlbumInput {
+  albumArtist: ArtistInput
+  id: Uuid
+  releaseDate: DateTime
+  songs: [SongInput]
+  title: String!
+}
+
+type Artist {
+  albums: [Album!]!
+  id: Uuid!
+  name: String!
+  songs: [Song!]!
+}
+
+input ArtistInput {
+  albums: [AlbumInput]
+  id: Uuid
+  name: String!
+  songs: [SongInput]
+}
+
+"""The `DateTime` scalar represents an ISO-8601 compliant date time type."""
+scalar DateTime
 
 """
 The multiplier path scalar represents a valid GraphQL multiplier path string.
@@ -21,24 +59,33 @@ The multiplier path scalar represents a valid GraphQL multiplier path string.
 scalar MultiplierPath
 
 type Mutation {
-  addToDoItem(input: CreateToDoItemInput): ToDoItem!
-  updateToDoItem(input: UpdateToDoItemInput): ToDoItem!
+  addAlbum(album: AlbumInput!, artistId: Uuid!): Album!
+  addArtist(artist: ArtistInput!): Artist!
+  addSong(albumId: Uuid!, artistId: Uuid!, song: SongInput!): Song!
 }
 
 type Query {
-  toDoItem(id: Int! = 1): ToDoItem
+  album(id: String = "b0000000-0000-0000-0000-000000000001"): Album
+  artist(id: String = "a0000000-0000-0000-0000-000000000001"): Artist
+  song(id: String = "c0000000-0000-0000-0000-000000000001"): Song
 }
 
-type ToDoItem {
-  description: String
-  id: Int!
-  isDone: Boolean!
-  title: String
+type Song {
+  album: Album!
+  artist: Artist!
+  id: Uuid!
+  length: Int
+  title: String!
+  trackNumber: Int
 }
 
-input UpdateToDoItemInput {
-  description: String
-  id: Int!
-  isDone: Boolean!
-  title: String
+input SongInput {
+  album: AlbumInput
+  artist: ArtistInput
+  id: Uuid
+  length: Int
+  title: String!
+  trackNumber: Int
 }
+
+scalar Uuid

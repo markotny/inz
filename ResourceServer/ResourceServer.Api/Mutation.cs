@@ -16,15 +16,22 @@ namespace ResourceServer.Api
 			_repository = repository;
 		}
 
-
-		public ToDoItem AddToDoItem(ToDoItem input)
+		public Artist AddArtist(Artist artist)
 		{
-			return _repository.Add(input);
+			return _repository.Add(artist);
 		}
 
-		public ToDoItem UpdateToDoItem(ToDoItem input)
+		public Album AddAlbum(Album album, Guid artistId)
 		{
-			return _repository.Update(input);
+			album.AlbumArtist = _repository.GetById<Artist, Guid>(artistId);
+			return _repository.Add(album);
+		}
+
+		public Song AddSong(Song song, Guid albumId, Guid artistId)
+		{
+			song.Album = _repository.GetById<Album, Guid>(albumId);
+			song.Artist = _repository.GetById<Artist, Guid>(artistId);
+			return _repository.Add(song);
 		}
 	}
 }

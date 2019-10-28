@@ -1,5 +1,6 @@
 ﻿using ResourceServer.Core.Entities;
 using ResourceServer.Core.Interfaces;
+using System;
 
 namespace ResourceServer.Api
 {
@@ -12,24 +13,19 @@ namespace ResourceServer.Api
 			_repository = repository;
 		}
 
-		public ToDoItem GetToDoItem(int id)
+		public Album GetAlbum(Guid id)
 		{
-			return _repository.GetById<ToDoItem, int>(id);
+			return _repository.GetById<Album, Guid>(id);
 		}
 
-		public Album GetAlbum(string id)
+		public Artist GetArtist(Guid id)
 		{
-			return _repository.GetById<Album, string>(id);
+			return _repository.GetById<Artist, Guid>(id);
 		}
 
-		public Artist GetArtist(string id)
+		public Song GetSong(Guid id)
 		{
-			return _repository.GetById<Artist, string>(id);
-		}
-
-		public Song GetSong(string id)
-		{
-			return _repository.GetById<Song, string>(id);
+			return _repository.GetById<Song, Guid>(id);
 		}
 	}
 }

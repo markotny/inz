@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace ResourceServer.Api.Api
+namespace ResourceServer.Api.Controllers
 {
-    public class MetaController : BaseApiController
-    {
+	[Route("api/[controller]")]
+	[ApiController]
+	public class MetaController : Controller
+	{
         [HttpGet("/info")]
         public ActionResult<string> Info()
         {

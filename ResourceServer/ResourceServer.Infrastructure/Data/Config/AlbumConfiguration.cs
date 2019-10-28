@@ -8,8 +8,8 @@ namespace ResourceServer.Infrastructure.Data.Config
 	{
 		public void Configure(EntityTypeBuilder<Album> builder)
 		{
-			builder.Property(t => t.Title)
-				.IsRequired();
+			//builder.Property(t => t.Title)
+			//	.IsRequired();
 		}
 	}
 }

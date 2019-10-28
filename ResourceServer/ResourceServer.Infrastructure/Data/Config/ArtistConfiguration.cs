@@ -8,9 +8,9 @@ namespace ResourceServer.Infrastructure.Data.Config
 	{
 		public void Configure(EntityTypeBuilder<Artist> builder)
 		{
-			builder.HasMany(t => t.Albums);
-			builder.Property(t => t.Name)
-				.IsRequired();
+			//builder.HasMany(t => t.Albums);
+			//builder.Property(t => t.Name)
+			//	.IsRequired();
 		}
 	}
 }
