@@ -11,6 +11,7 @@
     <PackageReference Include="HotChocolate.AspNetCore" Version="10.1.1" />
     <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="10.1.1" />
     <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.1.1" />
+    <PackageReference Include="Namotion.Reflection" Version="1.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />

@@ -1,5 +1,5 @@
 # source: http://localhost/api/graphql
-# timestamp: Mon Oct 28 2019 21:08:33 GMT+0100 (GMT+01:00)
+# timestamp: Thu Oct 31 2019 10:15:48 GMT+0100 (GMT+01:00)
 
 """The cost directives is used to express the complexity of a field."""
 directive @cost(
@@ -22,7 +22,9 @@ directive @authorize(
 
 type Album {
   albumArtist: Artist!
-  id: Uuid!
+  averageRating: Int
+  id: ID!
+  ratings: [Rating!]!
   releaseDate: DateTime
   songs: [Song!]!
   title: String!
@@ -30,24 +32,26 @@ type Album {
 
 input AlbumInput {
   albumArtist: ArtistInput
-  id: Uuid
+  averageRating: Int
+  id: ID!
+  ratings: [RatingInput!]!
   releaseDate: DateTime
-  songs: [SongInput]
+  songs: [SongInput!]!
   title: String!
 }
 
 type Artist {
   albums: [Album!]!
-  id: Uuid!
+  id: ID!
   name: String!
   songs: [Song!]!
 }
 
 input ArtistInput {
-  albums: [AlbumInput]
-  id: Uuid
+  albums: [AlbumInput!]!
+  id: ID!
   name: String!
-  songs: [SongInput]
+  songs: [SongInput!]!
 }
 
 """The `DateTime` scalar represents an ISO-8601 compliant date time type."""
@@ -59,9 +63,9 @@ The multiplier path scalar represents a valid GraphQL multiplier path string.
 scalar MultiplierPath
 
 type Mutation {
-  addAlbum(album: AlbumInput!, artistId: Uuid!): Album!
+  addAlbum(album: AlbumInput!, artistId: ID!): Album!
   addArtist(artist: ArtistInput!): Artist!
-  addSong(albumId: Uuid!, artistId: Uuid!, song: SongInput!): Song!
+  addSong(albumId: ID!, artistId: ID!, song: SongInput!): Song!
 }
 
 type Query {
@@ -70,10 +74,44 @@ type Query {
   song(id: String = "c0000000-0000-0000-0000-000000000001"): Song
 }
 
+type Rating {
+  album: Album!
+  id: ID!
+  review: Review
+  stars: Short!
+  user: User!
+}
+
+input RatingInput {
+  album: AlbumInput
+  id: ID!
+  review: ReviewInput
+  stars: Short!
+  user: UserInput
+}
+
+type Review {
+  id: ID!
+  rating: Rating!
+  reviewContent: String!
+}
+
+input ReviewInput {
+  id: ID!
+  rating: RatingInput
+  reviewContent: String!
+}
+
+"""
+The `Short` scalar type represents non-fractional signed whole 16-bit numeric
+values. Short can represent values between -(2^15) and 2^15 - 1.
+"""
+scalar Short
+
 type Song {
   album: Album!
   artist: Artist!
-  id: Uuid!
+  id: ID!
   length: Int
   title: String!
   trackNumber: Int
@@ -82,10 +120,18 @@ type Song {
 input SongInput {
   album: AlbumInput
   artist: ArtistInput
-  id: Uuid
+  id: ID!
   length: Int
   title: String!
   trackNumber: Int
 }
 
-scalar Uuid
+type User {
+  id: ID!
+  ratings: [Rating!]!
+}
+
+input UserInput {
+  id: ID!
+  ratings: [RatingInput!]!
+}

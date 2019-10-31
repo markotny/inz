@@ -1,5 +1,4 @@
 import {Component, OnInit, OnChanges} from '@angular/core';
-import {SelectedToDoItemGQL, ToDoItem} from '@gql/types.graphql-gen';
 import {map, tap} from 'rxjs/operators';
 
 @Component({
@@ -11,11 +10,9 @@ export class IndexComponent implements OnInit {
 	item;
 	selId = 1;
 
-	constructor(private getToDo: SelectedToDoItemGQL) {}
+	constructor() {}
 
 	ngOnInit() {
-		this.item = this.getToDo.watch({id: this.selId}).valueChanges.pipe(
-			map(res => res.data.toDoItem)
-		);
+
 	}
 }

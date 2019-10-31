@@ -16,13 +16,13 @@ namespace ResourceServer.Api.Types
 
 			descriptor.Field(t => t.AddAlbum(default!, default))
 				.Argument("album", a => a.Type<NonNullType<AlbumInputType>>())
-				.Argument("artistId", a => a.Type<NonNullType<UuidType>>())
+				.Argument("artistId", a => a.Type<NonNullType<IdType>>())
 				.Type<NonNullType<AlbumType>>();
 
 			descriptor.Field(t => t.AddSong(default!, default, default))
 				.Argument("song", a => a.Type<NonNullType<SongInputType>>())
-				.Argument("albumId", a => a.Type<NonNullType<UuidType>>())
-				.Argument("artistId", a => a.Type<NonNullType<UuidType>>())
+				.Argument("albumId", a => a.Type<NonNullType<IdType>>())
+				.Argument("artistId", a => a.Type<NonNullType<IdType>>())
 				.Type<NonNullType<SongType>>();
 		}
 	}

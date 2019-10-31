@@ -12,15 +12,13 @@ namespace ResourceServer.Core.Entities
 
 		public virtual ICollection<Song> Songs
 		{
-			get => _songs
-				?? throw new InvalidOperationException($"Uninitialized property: {nameof(Songs)}");
+			get => NavigationPropertyAccessor(_songs);
 			set => _songs = value;
 		}
 
 		public virtual ICollection<Album> Albums
 		{
-			get => _albums
-				?? throw new InvalidOperationException($"Uninitialized property: {nameof(Albums)}");
+			get => NavigationPropertyAccessor(_albums);
 			set => _albums = value;
 		}
 	}

@@ -1,6 +1,7 @@
 ﻿using ResourceServer.Core.Entities;
 using ResourceServer.Core.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace ResourceServer.Api
 {
@@ -16,6 +17,11 @@ namespace ResourceServer.Api
 		public Album GetAlbum(Guid id)
 		{
 			return _repository.GetById<Album, Guid>(id);
+		}
+
+		public IEnumerable<Album> GetAlbums()
+		{
+			return _repository.List<Album>();
 		}
 
 		public Artist GetArtist(Guid id)

@@ -1,6 +1,0 @@
-query selectedToDoItem($id: Int!) {
-	toDoItem(id: $id) {
-		title
-		description
-	}
-}

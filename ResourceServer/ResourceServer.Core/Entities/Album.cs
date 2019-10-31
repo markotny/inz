@@ -8,21 +8,30 @@ namespace ResourceServer.Core.Entities
 	{
 		private Artist? _albumArtist;
 		private ICollection<Song>? _songs;
+		private ICollection<Rating>? _ratings;
+
 		public string Title { get; set; } = null!;
 		public DateTime? ReleaseDate { get; set; }
+		public int? AverageRating { get; set; }
+
+		public Guid AlbumArtistId { get; set; }
 
 		public virtual Artist AlbumArtist
 		{
-			get => _albumArtist
-				?? throw new InvalidOperationException($"Uninitialized property: {nameof(AlbumArtist)}");
+			get => NavigationPropertyAccessor(_albumArtist);
 			set => _albumArtist = value;
 		}
 
 		public virtual ICollection<Song> Songs
 		{
-			get => _songs
-				?? throw new InvalidOperationException($"Uninitialized property: {nameof(Songs)}");
+			get => NavigationPropertyAccessor(_songs);
 			set => _songs = value;
+		}
+
+		public virtual ICollection<Rating> Ratings
+		{
+			get => NavigationPropertyAccessor(_ratings);
+			set => _ratings = value;
 		}
 	}
 }

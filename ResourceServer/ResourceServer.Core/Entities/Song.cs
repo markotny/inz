@@ -7,23 +7,25 @@ namespace ResourceServer.Core.Entities
 	{
 		private Album? _album;
 		private Artist? _artist;
+
 		public string Title { get; set; } = null!;
+		public int? Length { get; set; }
+		public int? TrackNumber { get; set; }
+
+		public Guid AlbumId { get; set; }
 
 		public virtual Album Album
 		{
-			get => _album
-				?? throw new InvalidOperationException($"Uninitialized property: {nameof(Album)}");
+			get => NavigationPropertyAccessor(_album);
 			set => _album = value;
 		}
 
+		public Guid ArtistId { get; set; }
+
 		public virtual Artist Artist
 		{
-			get => _artist
-				?? throw new InvalidOperationException($"Uninitialized property: {nameof(Artist)}");
+			get => NavigationPropertyAccessor(_artist);
 			set => _artist = value;
 		}
-
-		public int? Length { get; set; }
-		public int? TrackNumber { get; set; }
 	}
 }

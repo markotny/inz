@@ -12,6 +12,9 @@ using HotChocolate.AspNetCore.Playground;
 using Microsoft.IdentityModel.Logging;
 using HotChocolate.Execution.Configuration;
 using Serilog;
+using HotChocolate.Types.Descriptors;
+using ResourceServer.Api.Conventions;
+using HotChocolate.Types;
 
 namespace ResourceServer.Api
 {
@@ -29,13 +32,11 @@ namespace ResourceServer.Api
 			services.AddControllers();
 
 			services.AddGraphQL(sp => SchemaBuilder.New()
-				//.AddServices(sp)
+				.AddServices(sp)
 				.AddAuthorizeDirectiveType()
 				.AddQueryType<QueryType>()
 				.AddMutationType<MutationType>()
-				.AddType<ArtistType>()
-				.AddType<AlbumType>()
-				.AddType<SongType>()
+				.BindClrType<Guid, IdType>()
 				.Create(),
 				new QueryExecutionOptions
 				{

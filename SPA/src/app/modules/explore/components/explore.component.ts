@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { Album } from '@gql/types.graphql-gen';
 
 export enum ViewMode {
 	grid,
@@ -14,10 +15,11 @@ export enum ViewMode {
 export class ExploreComponent implements OnInit {
 	viewMode = ViewMode;
 	selectedView: ViewMode;
+	albums: Album[];
 
 	constructor() {}
 
 	ngOnInit() {
-		this.selectedView = ViewMode.list;
+		this.selectedView = ViewMode.grid;
 	}
 }
