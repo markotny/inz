@@ -5,16 +5,9 @@ namespace ResourceServer.Core.Entities
 {
 	public class Review : BaseEntity
 	{
-		private Rating? _rating;
-
 		public string ReviewContent { get; set; } = null!;
 
 		public Guid RatingId { get; set; }
-
-		public virtual Rating Rating
-		{
-			get => NavigationPropertyAccessor(_rating);
-			set => _rating = value;
-		}
+		public virtual Rating Rating { get; set; } = null!;
 	}
 }

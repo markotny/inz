@@ -21,16 +21,23 @@ namespace ResourceServer.Api
 			return _repository.Add(artist);
 		}
 
-		public Album AddAlbum(Album album, Guid artistId)
+		public Album AddAlbum(Album album)
 		{
-			album.AlbumArtistId = artistId;
+			if (album.Songs.Count > 0)
+			{
+				foreach (var song in album.Songs)
+					song.AlbumId = album.Id;
+			}
 			return _repository.Add(album);
 		}
 
-		public Song AddSong(Song song, Guid albumId, Guid artistId)
+		public Album UpdateAlbum(Album album)
 		{
-			song.AlbumId = albumId;
-			song.ArtistId = artistId;
+			return _repository.Update(album);
+		}
+
+		public Song AddSong(Song song)
+		{
 			return _repository.Add(song);
 		}
 	}

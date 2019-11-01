@@ -6,12 +6,6 @@ namespace ResourceServer.Core.Entities
 {
 	public class User : BaseEntity
 	{
-		private ICollection<Rating>? _ratings;
-
-		public virtual ICollection<Rating> Ratings
-		{
-			get => NavigationPropertyAccessor(_ratings);
-			set => _ratings = value;
-		}
+		public virtual ICollection<Rating> Ratings { get; set; } = null!;
 	}
 }

@@ -14,6 +14,8 @@ namespace ResourceServer.Api.Types
 	{
 		protected override void Configure(IInputObjectTypeDescriptor<Album> descriptor)
 		{
+			descriptor.Field(t => t.AlbumArtistId)
+				.Type<NonNullType<IdType>>();
 		}
 	}
 }

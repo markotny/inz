@@ -9,10 +9,16 @@ namespace ResourceServer.Api.Types
 		{
 		}
 	}
+
 	public class SongInputType : InputObjectType<Song>
 	{
 		protected override void Configure(IInputObjectTypeDescriptor<Song> descriptor)
 		{
+			descriptor.Field(t => t.AlbumId)
+				.Type<IdType>();
+
+			descriptor.Field(t => t.ArtistId)
+				.Type<NonNullType<IdType>>();
 		}
 	}
 }
