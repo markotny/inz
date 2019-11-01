@@ -3,7 +3,7 @@ using System;
 
 namespace ResourceServer.Core.Entities
 {
-	public class Song : BaseEntity<Guid>
+	public class Song : BaseEntity
 	{
 		private Album? _album;
 		private Artist? _artist;

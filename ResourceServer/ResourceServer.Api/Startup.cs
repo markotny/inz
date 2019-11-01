@@ -12,8 +12,6 @@ using HotChocolate.AspNetCore.Playground;
 using Microsoft.IdentityModel.Logging;
 using HotChocolate.Execution.Configuration;
 using Serilog;
-using HotChocolate.Types.Descriptors;
-using ResourceServer.Api.Conventions;
 using HotChocolate.Types;
 
 namespace ResourceServer.Api

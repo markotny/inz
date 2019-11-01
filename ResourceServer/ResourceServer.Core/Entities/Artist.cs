@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ResourceServer.Core.Entities
 {
-	public class Artist : BaseEntity<Guid>
+	public class Artist : BaseEntity
 	{
 		private ICollection<Song>? _songs;
 		private ICollection<Album>? _albums;

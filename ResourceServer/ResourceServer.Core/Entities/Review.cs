@@ -3,7 +3,7 @@ using System;
 
 namespace ResourceServer.Core.Entities
 {
-	public class Review : BaseEntity<Guid>
+	public class Review : BaseEntity
 	{
 		private Rating? _rating;
 

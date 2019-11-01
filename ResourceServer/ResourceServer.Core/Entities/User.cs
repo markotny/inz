@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ResourceServer.Core.Entities
 {
-	public class User : BaseEntity<Guid>
+	public class User : BaseEntity
 	{
 		private ICollection<Rating>? _ratings;
 

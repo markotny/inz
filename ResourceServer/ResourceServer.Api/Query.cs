@@ -16,7 +16,7 @@ namespace ResourceServer.Api
 
 		public Album GetAlbum(Guid id)
 		{
-			return _repository.GetById<Album, Guid>(id);
+			return _repository.GetById<Album>(id);
 		}
 
 		public IEnumerable<Album> GetAlbums()
@@ -26,12 +26,12 @@ namespace ResourceServer.Api
 
 		public Artist GetArtist(Guid id)
 		{
-			return _repository.GetById<Artist, Guid>(id);
+			return _repository.GetById<Artist>(id);
 		}
 
 		public Song GetSong(Guid id)
 		{
-			return _repository.GetById<Song, Guid>(id);
+			return _repository.GetById<Song>(id);
 		}
 	}
 }

@@ -3,6 +3,7 @@ using ResourceServer.Core.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace ResourceServer.Infrastructure.Data
 {
@@ -15,9 +16,9 @@ namespace ResourceServer.Infrastructure.Data
 			_dbContext = dbContext;
 		}
 
-		public T GetById<T, TId>(TId id) where T : BaseEntity<TId>
+		public T GetById<T>(Guid id) where T : BaseEntity
 		{
-			return _dbContext.Set<T>().SingleOrDefault(e => EqualityComparer<TId>.Default.Equals(e.Id, id));
+			return _dbContext.Set<T>().SingleOrDefault(e => e.Id == id);
 		}
 
 		public List<T> List<T>() where T : BaseEntity

@@ -23,14 +23,14 @@ namespace ResourceServer.Api
 
 		public Album AddAlbum(Album album, Guid artistId)
 		{
-			album.AlbumArtist = _repository.GetById<Artist, Guid>(artistId);
+			album.AlbumArtistId = artistId;
 			return _repository.Add(album);
 		}
 
 		public Song AddSong(Song song, Guid albumId, Guid artistId)
 		{
-			song.Album = _repository.GetById<Album, Guid>(albumId);
-			song.Artist = _repository.GetById<Artist, Guid>(artistId);
+			song.AlbumId = albumId;
+			song.ArtistId = artistId;
 			return _repository.Add(song);
 		}
 	}

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ResourceServer.Core.Entities
 {
-	public class Rating : BaseEntity<Guid>
+	public class Rating : BaseEntity
 	{
 		private User? _user;
 		private Album? _album;

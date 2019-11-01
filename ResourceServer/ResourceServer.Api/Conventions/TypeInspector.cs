@@ -20,11 +20,14 @@ namespace ResourceServer.Api.Conventions
 		{
 			if (ExtendsBaseEntity(member.ReflectedType))
 			{
-				var contextualProperty = member.ReflectedType!.GetProperty(member.Name).ToContextualProperty();
+				var contextualProperty = (member as PropertyInfo).ToContextualProperty();
+
+				var isCollectionType = contextualProperty.GenericArguments?.Any() ?? false;
 
 				bool isNullable, isElementNullable;
 
-				if (context == TypeContext.Input && ExtendsBaseEntity(contextualProperty.Type))
+				if (context == TypeContext.Input &&
+					(IsPrimaryKey(member) || ExtendsBaseEntity(contextualProperty.Type) || isCollectionType))
 				{
 					isNullable = true;
 					isElementNullable = true;
@@ -32,7 +35,9 @@ namespace ResourceServer.Api.Conventions
 				else
 				{
 					isNullable = contextualProperty.Nullability == Nullability.Nullable;
-					isElementNullable = contextualProperty.GenericArguments?.FirstOrDefault()?.Nullability == Nullability.Nullable;
+					isElementNullable = isCollectionType
+						? contextualProperty.GenericArguments![0].Nullability == Nullability.Nullable
+						: true;
 				}
 
 				return new ClrTypeReference(
@@ -48,12 +53,17 @@ namespace ResourceServer.Api.Conventions
 
 		private IEnumerable<MemberInfo> IgnoreForeignKeys(IEnumerable<MemberInfo> members)
 		{
-			return members.Where(member => member.Name.StartsWith("Id") || !member.Name.EndsWith("Id"));
+			return members.Where(member => IsPrimaryKey(member) || !member.Name.EndsWith("Id"));
 		}
 
 		private bool ExtendsBaseEntity(Type? type)
 		{
-			return type?.BaseType == typeof(BaseEntity<Guid>);
+			return type?.BaseType == typeof(BaseEntity);
+		}
+
+		private bool IsPrimaryKey(MemberInfo member)
+		{
+			return member.Name.Equals("Id");
 		}
 	}
 }
