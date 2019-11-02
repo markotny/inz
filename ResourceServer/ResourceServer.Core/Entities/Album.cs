@@ -8,7 +8,8 @@ namespace ResourceServer.Core.Entities
 	{
 		public string Title { get; set; } = null!;
 		public DateTime? ReleaseDate { get; set; }
-		public int? AverageRating { get; set; }
+		public float? AverageRating { get; set; }
+		public string? CoverSrc { get; set; }
 
 		public Guid AlbumArtistId { get; set; }
 		public virtual Artist AlbumArtist { get; set; } = null!;

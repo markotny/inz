@@ -1,0 +1,11 @@
+query getAlbums {
+  albums {
+    id
+    title
+		albumArtist {
+			name
+		}
+    averageRating
+		coverSrc
+  }
+}

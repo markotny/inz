@@ -1,5 +1,5 @@
 # source: http://localhost/api/graphql
-# timestamp: Thu Oct 31 2019 10:15:48 GMT+0100 (GMT+01:00)
+# timestamp: Fri Nov 01 2019 22:18:04 GMT+0100 (GMT+01:00)
 
 """The cost directives is used to express the complexity of a field."""
 directive @cost(
@@ -23,6 +23,7 @@ directive @authorize(
 type Album {
   albumArtist: Artist!
   averageRating: Int
+  coverSrc: String
   id: ID!
   ratings: [Rating!]!
   releaseDate: DateTime
@@ -32,11 +33,13 @@ type Album {
 
 input AlbumInput {
   albumArtist: ArtistInput
+  albumArtistId: ID
   averageRating: Int
-  id: ID!
-  ratings: [RatingInput!]!
+  coverSrc: String
+  id: ID
+  ratings: [RatingInput]
   releaseDate: DateTime
-  songs: [SongInput!]!
+  songs: [SongInput]
   title: String!
 }
 
@@ -48,10 +51,10 @@ type Artist {
 }
 
 input ArtistInput {
-  albums: [AlbumInput!]!
-  id: ID!
+  albums: [AlbumInput]
+  id: ID
   name: String!
-  songs: [SongInput!]!
+  songs: [SongInput]
 }
 
 """The `DateTime` scalar represents an ISO-8601 compliant date time type."""
@@ -63,15 +66,17 @@ The multiplier path scalar represents a valid GraphQL multiplier path string.
 scalar MultiplierPath
 
 type Mutation {
-  addAlbum(album: AlbumInput!, artistId: ID!): Album!
+  addAlbum(album: AlbumInput!): Album!
   addArtist(artist: ArtistInput!): Artist!
-  addSong(albumId: ID!, artistId: ID!, song: SongInput!): Song!
+  addSong(song: SongInput!): Song!
+  updateAlbum(album: AlbumInput!): Album
 }
 
 type Query {
-  album(id: String = "b0000000-0000-0000-0000-000000000001"): Album
-  artist(id: String = "a0000000-0000-0000-0000-000000000001"): Artist
-  song(id: String = "c0000000-0000-0000-0000-000000000001"): Song
+  album(id: ID!): Album
+  albums: [Album!]!
+  artist(id: ID!): Artist
+  song(id: ID!): Song
 }
 
 type Rating {
@@ -84,7 +89,7 @@ type Rating {
 
 input RatingInput {
   album: AlbumInput
-  id: ID!
+  id: ID
   review: ReviewInput
   stars: Short!
   user: UserInput
@@ -97,7 +102,7 @@ type Review {
 }
 
 input ReviewInput {
-  id: ID!
+  id: ID
   rating: RatingInput
   reviewContent: String!
 }
@@ -119,8 +124,10 @@ type Song {
 
 input SongInput {
   album: AlbumInput
+  albumId: ID
   artist: ArtistInput
-  id: ID!
+  artistId: ID!
+  id: ID
   length: Int
   title: String!
   trackNumber: Int
@@ -132,6 +139,6 @@ type User {
 }
 
 input UserInput {
-  id: ID!
-  ratings: [RatingInput!]!
+  id: ID
+  ratings: [RatingInput]
 }

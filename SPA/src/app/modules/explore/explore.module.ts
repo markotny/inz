@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
+import {SharedModule} from '@shared/shared.module';
 import {ExploreRoutingModule} from './explore-routing.module';
 import {ExploreComponent} from './components/explore.component';
 import {AlbumGridComponent} from './components/album-grid/album-grid.component';
@@ -9,6 +10,6 @@ import {AlbumDetailedComponent} from './components/album-detailed/album-detailed
 
 @NgModule({
 	declarations: [AlbumGridComponent, AlbumListComponent, ExploreComponent, AlbumDetailedComponent],
-	imports: [CommonModule, ExploreRoutingModule]
+	imports: [CommonModule, SharedModule, ExploreRoutingModule]
 })
 export class ExploreModule {}

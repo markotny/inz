@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+
+@mixin album-grid-component-theme($theme) {
+	$primary: map-get($theme, primary);
+	$accent: map-get($theme, accent);
+
+	mat-grid-tile {
+		@include mat-elevation-transition;
+		@include mat-elevation(2);
+	
+		&:hover {
+			@include mat-elevation(8);
+		}
+	}
+}

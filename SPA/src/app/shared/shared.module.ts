@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
 import {NgxSpinnerModule} from 'ngx-spinner';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 import {
 	MatMenuModule,
@@ -25,6 +26,7 @@ import {AutoFocusDirective} from './directives/auto-focus.directive';
 	imports: [
 		CommonModule,
 		NgxSpinnerModule,
+		FlexLayoutModule,
 		FormsModule,
     MatMenuModule,
     MatToolbarModule,
@@ -44,6 +46,7 @@ import {AutoFocusDirective} from './directives/auto-focus.directive';
 		AutoFocusDirective,
 		CommonModule,
 		NgxSpinnerModule,
+		FlexLayoutModule,
 		FormsModule,
     MatMenuModule,
     MatToolbarModule,

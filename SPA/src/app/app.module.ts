@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FlexLayoutModule} from '@angular/flex-layout';
 
 import {AppRoutingModule} from './app-routing.module';
 import {CoreModule} from '@core/core.module';
@@ -21,7 +20,6 @@ import {SidenavComponent} from '@shell/sidenav/sidenav.component';
 		CommonModule,
 		HttpClientModule,
 		BrowserAnimationsModule,
-		FlexLayoutModule,
 		CoreModule,
 		AppRoutingModule,
 		SharedModule,

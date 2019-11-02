@@ -9,10 +9,12 @@
 
 @import 'app/shell/header/header.component.theme';
 @import 'app/shell/sidenav/sidenav.component.theme';
+@import 'app/modules/explore/components/album-grid/album-grid.component.theme';
 
 @mixin custom-components-theme($theme) {
   @include header-component-theme($theme);
-  @include sidenav-component-theme($theme);
+	@include sidenav-component-theme($theme);
+	@include album-grid-component-theme($theme);
 }
 
 .light-theme {

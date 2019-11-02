@@ -1,1 +1,16 @@
-<p>album-grid works!</p>
+<mat-grid-list cols="5" gutterSize="5px">
+	<mat-grid-tile *ngFor="let tile of (tiles$ | async)" [colspan]="tile.cols" [rowspan]="tile.rows">
+		<mat-card fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="5px">
+			<div fxFlex class="tile-header">
+				<mat-card-title>{{tile.title}}</mat-card-title>
+				<mat-card-subtitle>{{tile.artist}}</mat-card-subtitle>
+			</div>
+			<mat-card-content fxFlex="grow" fxFlexFill fxLayoutAlign="center center">
+				<div>
+					{{tile.averageRating}}
+				</div>
+			</mat-card-content>
+			<img [src]="tile.coverSrc">
+		</mat-card>
+	</mat-grid-tile>
+</mat-grid-list>

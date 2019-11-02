@@ -1,11 +1,11 @@
 <span [ngSwitch]="selectedView">
-	<app-album-list *ngSwitchCase="viewMode.list" [albums]="albums">
+	<app-album-list *ngSwitchCase="viewMode.list" [albums]="albums$">
 
 	</app-album-list>
-	<app-album-detailed *ngSwitchCase="viewMode.detailed" [albums]="albums">
+	<app-album-detailed *ngSwitchCase="viewMode.detailed" [albums]="albums$">
 
 	</app-album-detailed>
-	<app-album-grid *ngSwitchDefault [albums]="albums">
+	<app-album-grid *ngSwitchDefault [albums$]="albums$">
 
 	</app-album-grid>
 </span>

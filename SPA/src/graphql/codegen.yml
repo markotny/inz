@@ -3,6 +3,8 @@ schema:
   - "src/graphql/schema.graphql"
   - "src/graphql/schema-client.graphql"
 documents: "src/**/*.graphql"
+config:
+  declarationKind: "interface"
 generates:
   src/graphql/types.graphql-gen.ts:
     plugins:

@@ -32,6 +32,8 @@ namespace ResourceServer.Api
 			Id = new Guid("b0000000-0000-0000-0000-000000000001"),
 			Title = "Album 1",
 			AlbumArtist = Artist1,
+			CoverSrc = "https://lastfm.freetls.fastly.net/i/u/770x0/4ec11bb31158f2569605740bbd28a907.jpg",
+			AverageRating = 5,
 			ReleaseDate = new DateTime()
 		};
 
@@ -40,6 +42,8 @@ namespace ResourceServer.Api
 			Id = new Guid("b0000000-0000-0000-0000-000000000002"),
 			Title = "Album 2",
 			AlbumArtist = Artist2,
+			CoverSrc = "https://lastfm.freetls.fastly.net/i/u/770x0/4ec11bb31158f2569605740bbd28a907.jpg",
+			AverageRating = 3,
 			ReleaseDate = new DateTime()
 		};
 
@@ -47,8 +51,8 @@ namespace ResourceServer.Api
 		{
 			Id = new Guid("c0000000-0000-0000-0000-000000000001"),
 			Title = "Song 1",
-			Album = Album1,
-			Artist = Artist1,
+			AlbumId = new Guid("b0000000-0000-0000-0000-000000000001"),
+			ArtistId = new Guid("a0000000-0000-0000-0000-000000000001"),
 			TrackNumber = 1
 		};
 
@@ -56,8 +60,8 @@ namespace ResourceServer.Api
 		{
 			Id = new Guid("c0000000-0000-0000-0000-000000000002"),
 			Title = "Song 2",
-			Album = Album1,
-			Artist = Artist1,
+			AlbumId = new Guid("b0000000-0000-0000-0000-000000000001"),
+			ArtistId = new Guid("a0000000-0000-0000-0000-000000000001"),
 			TrackNumber = 2
 		};
 
@@ -65,8 +69,8 @@ namespace ResourceServer.Api
 		{
 			Id = new Guid("c0000000-0000-0000-0000-000000000003"),
 			Title = "Song 3",
-			Album = Album1,
-			Artist = Artist1,
+			AlbumId = new Guid("b0000000-0000-0000-0000-000000000001"),
+			ArtistId = new Guid("a0000000-0000-0000-0000-000000000001"),
 			TrackNumber = 3
 		};
 
@@ -74,8 +78,8 @@ namespace ResourceServer.Api
 		{
 			Id = new Guid("c0000000-0000-0000-0000-000000000004"),
 			Title = "Song 4",
-			Album = Album2,
-			Artist = Artist2,
+			AlbumId = new Guid("b0000000-0000-0000-0000-000000000002"),
+			ArtistId = new Guid("a0000000-0000-0000-0000-000000000002"),
 			TrackNumber = 1
 		};
 
@@ -83,8 +87,8 @@ namespace ResourceServer.Api
 		{
 			Id = new Guid("c0000000-0000-0000-0000-000000000005"),
 			Title = "Song 5",
-			Album = Album2,
-			Artist = Artist3,
+			AlbumId = new Guid("b0000000-0000-0000-0000-000000000003"),
+			ArtistId = new Guid("a0000000-0000-0000-0000-000000000003"),
 			TrackNumber = 2
 		};
 
@@ -117,11 +121,22 @@ namespace ResourceServer.Api
             dbContext.SaveChanges();
 
 			dbContext.Artists.Add(Artist1);
-			dbContext.Artists.Add(Artist1);
+			dbContext.Artists.Add(Artist2);
 			dbContext.Artists.Add(Artist3);
 
-			dbContext.Albums.Add(Album1);
-			dbContext.Albums.Add(Album2);
+			for(var i = 0; i < 10; i++)
+			{
+				dbContext.Albums.Add(new Album
+				{
+					Id = new Guid($"b0000000-0000-0000-0000-00000000000{i}"),
+					Title = $"Album {i}",
+					AlbumArtist = Artist1,
+					CoverSrc = "https://lastfm.freetls.fastly.net/i/u/770x0/4ec11bb31158f2569605740bbd28a907.jpg",
+					AverageRating = 5,
+					ReleaseDate = new DateTime()
+				});
+				dbContext.SaveChanges();
+			}
 
 			dbContext.Songs.Add(Song1);
 			dbContext.Songs.Add(Song2);
