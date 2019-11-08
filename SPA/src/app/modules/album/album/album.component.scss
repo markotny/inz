@@ -1,0 +1,26 @@
+.album-wrapper {
+	padding: 20px 50px;
+	min-width: 300px;
+}
+
+.album-cover {
+	width: 300px;
+	height: 300px;
+}
+
+table,
+mat-table {
+	max-width: 600px;
+}
+
+tr.review-row {
+  height: 0;
+}
+
+.rating-row td {
+  border-bottom-width: 0;
+}
+
+.review-expanded {	
+  overflow: hidden;
+}

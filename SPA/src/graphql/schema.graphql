@@ -1,5 +1,5 @@
 # source: http://localhost/api/graphql
-# timestamp: Fri Nov 01 2019 22:18:04 GMT+0100 (GMT+01:00)
+# timestamp: Fri Nov 08 2019 10:20:58 GMT+0100 (GMT+01:00)
 
 """The cost directives is used to express the complexity of a field."""
 directive @cost(
@@ -22,7 +22,7 @@ directive @authorize(
 
 type Album {
   albumArtist: Artist!
-  averageRating: Int
+  averageRating: Float
   coverSrc: String
   id: ID!
   ratings: [Rating!]!
@@ -34,7 +34,7 @@ type Album {
 input AlbumInput {
   albumArtist: ArtistInput
   albumArtistId: ID
-  averageRating: Int
+  averageRating: Float
   coverSrc: String
   id: ID
   ratings: [RatingInput]
@@ -136,9 +136,11 @@ input SongInput {
 type User {
   id: ID!
   ratings: [Rating!]!
+  username: String!
 }
 
 input UserInput {
   id: ID
   ratings: [RatingInput]
+  username: String!
 }

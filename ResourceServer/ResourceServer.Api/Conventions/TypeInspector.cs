@@ -18,7 +18,7 @@ namespace ResourceServer.Api.Conventions
 
 		public override ITypeReference GetReturnType(MemberInfo member, TypeContext context)
 		{
-			if (ExtendsBaseEntity(member.ReflectedType))
+			if (ExtendsBaseEntity(member.ReflectedType) && member.MemberType == MemberTypes.Property)
 			{
 				var contextualProperty = (member as PropertyInfo).ToContextualProperty();
 

@@ -96,13 +96,13 @@ namespace ResourceServer.Api
         {
             using var dbContext = new AppDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null);
-            // Look for any TODO items.
-            //if (dbContext.Songs.Any())
-            //{
-            //    return;   // DB has been seeded
-            //}
+			// Look for any TODO items.
+			if (dbContext.Albums.Any())
+			{
+				return;   // DB has been seeded
+			}
 
-            PopulateTestData(dbContext);
+			PopulateTestData(dbContext);
         }
         public static void PopulateTestData(AppDbContext dbContext)
         {

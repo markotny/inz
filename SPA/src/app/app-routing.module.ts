@@ -25,6 +25,10 @@ const routes: Routes = [
 		loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
 	},
 	{
+		path: 'album',
+		loadChildren: () => import('./modules/album/album.module').then(m => m.AlbumModule)
+	},
+	{
 		path: 'explore',
 		loadChildren: () => import('./modules/explore/explore.module').then(m => m.ExploreModule)
 	},

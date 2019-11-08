@@ -19,11 +19,17 @@ namespace ResourceServer.Api.Types
 				.Type<NonNullType<AlbumType>>();
 
 			descriptor.Field(t => t.UpdateAlbum(default!))
-				.Argument("album", a => a.Type<NonNullType<AlbumInputType>>());
+				.Argument("album", a => a.Type<NonNullType<AlbumInputType>>())
+				.Type<NonNullType<AlbumType>>();
 
 			descriptor.Field(t => t.AddSong(default!))
 				.Argument("song", a => a.Type<NonNullType<SongInputType>>())
 				.Type<NonNullType<SongType>>();
+
+			descriptor.Field(t => t.AddRating(default!, default!))
+				.Argument("albumId", a => a.Type<NonNullType<IdType>>())
+				.Argument("rating", a => a.Type<NonNullType<RatingInputType>>())
+				.Type<NonNullType<RatingType>>();
 		}
 	}
 }

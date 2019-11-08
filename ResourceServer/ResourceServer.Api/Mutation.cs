@@ -40,5 +40,13 @@ namespace ResourceServer.Api
 		{
 			return _repository.Add(song);
 		}
+
+		public Rating AddRating(Guid albumId, Rating rating)
+		{
+			var album = _repository.GetById<Album>(albumId);
+			album.AddRating(rating);
+			_repository.Update(album);
+			return rating;
+		}
 	}
 }

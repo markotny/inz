@@ -1,0 +1,67 @@
+<div *ngIf="album$ | async as album" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px"
+	class="album-wrapper">
+	<div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="start start" fxLayoutGap="20px">
+		<img fxFlex="noshrink" class="album-cover" [src]="album.coverSrc">
+		<div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="gappx">
+			<h3>
+				Title: {{album.title}}
+			</h3>
+			<h3>
+				Artist: {{album.albumArtist.name}}
+			</h3>
+			<h3>
+				Release date: {{album.releaseDate | date}}
+			</h3>
+			<h3>
+				Average rating: {{album.averageRating}}
+			</h3>
+		</div>
+	</div>
+
+	<label>Tracklist</label>
+	<mat-table fxFlex="grow" fxFlexFill [dataSource]="album.songs">
+		<ng-container matColumnDef="trackNumber">
+			<mat-cell *matCellDef="let row"> {{row.trackNumber}} </mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="title">
+			<mat-cell *matCellDef="let row"> {{row.title}} <br> {{row.artist.name}} </mat-cell>
+		</ng-container>
+
+		<mat-row *matRowDef="let row; columns: ['trackNumber', 'title']"></mat-row>
+	</mat-table>
+
+	<label>Reviews</label>
+	<table mat-table fxFlex="grow" fxFlexFill [dataSource]="album.ratings" multiTemplateDataRows>
+		<ng-container matColumnDef="stars">
+			<th mat-header-cell *matHeaderCellDef> Stars </th>
+			<td mat-cell *matCellDef="let row"> {{row.stars}} </td>
+		</ng-container>
+
+		<ng-container matColumnDef="user">
+			<th mat-header-cell *matHeaderCellDef> User </th>
+			<td mat-cell *matCellDef="let row"> {{row.user.username}} </td>
+		</ng-container>
+
+		<ng-container matColumnDef="review">
+			<th mat-header-cell *matHeaderCellDef> Full review </th>
+			<td mat-cell *matCellDef="let row"> {{row.review != null ? 'Click to see review' : ''}} </td>
+		</ng-container>
+
+		<ng-container matColumnDef="reviewExpanded">
+			<td mat-cell *matCellDef="let row" [attr.colspan]="reviewsColumns.length">
+				<div class="review-expanded" [@reviewExpand]="row.review?.id == expandedReviewId ? 'expanded' : 'collapsed'">
+					{{row.review?.reviewContent}}
+				</div>
+			</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="reviewsColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: reviewsColumns" class="rating-row"
+			[class.rating-expanded-row]="row.review?.id == expandedReviewId"
+			(click)="expandedReviewId = expandedReviewId === row.review?.id ? null : row.review.id">
+		</tr>
+		<tr mat-row *matRowDef="let element; columns: ['reviewExpanded']" class="review-row"></tr>
+	</table>
+
+</div>

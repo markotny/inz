@@ -6,6 +6,7 @@ import {Albums} from '../explore.component';
 export interface AlbumTile {
 	cols: number;
 	rows: number;
+	id: string;
 	title: string;
 	artist: string;
 	averageRating?: number;

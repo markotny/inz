@@ -15,5 +15,11 @@ namespace ResourceServer.Core.Entities
 		public virtual Artist AlbumArtist { get; set; } = null!;
 		public virtual ICollection<Song> Songs { get; set; } = null!;
 		public virtual ICollection<Rating> Ratings { get; set; } = null!;
+
+		public void AddRating(Rating newRating)
+		{
+			Ratings.Add(newRating);
+			AverageRating = (AverageRating * (Ratings.Count - 1) + newRating.Stars) / Ratings.Count;
+		}
 	}
 }

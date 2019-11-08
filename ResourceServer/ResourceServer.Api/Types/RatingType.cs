@@ -13,6 +13,8 @@ namespace ResourceServer.Api.Types
 	{
 		protected override void Configure(IInputObjectTypeDescriptor<Rating> descriptor)
 		{
+			descriptor.Field(t => t.UserId)
+				.Type<IdType>();
 		}
 	}
 }
