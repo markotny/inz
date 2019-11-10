@@ -33,6 +33,10 @@ const routes: Routes = [
 		loadChildren: () => import('./modules/explore/explore.module').then(m => m.ExploreModule)
 	},
 	{
+		path: 'review',
+		loadChildren: () => import('./modules/review/review.module').then(m => m.ReviewModule)
+	},
+	{
 		path: 'settings',
 		loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule)
 	},

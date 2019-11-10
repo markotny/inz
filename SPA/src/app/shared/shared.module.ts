@@ -9,6 +9,7 @@ import {
 	MatMenuModule,
 	MatToolbarModule,
 	MatSidenavModule,
+	MatStepperModule,
   MatGridListModule,
 	MatListModule,
 	MatTableModule,
@@ -18,8 +19,10 @@ import {
 	MatButtonModule,
   MatIconModule,
 	MatSelectModule,
-	MatSlideToggleModule
+	MatSlideToggleModule,
+	MatInputModule
 } from '@angular/material';
+import {RatingModule} from 'ng-starrating';
 
 import {AutoFocusDirective} from './directives/auto-focus.directive';
 
@@ -32,6 +35,7 @@ import {AutoFocusDirective} from './directives/auto-focus.directive';
 		MatMenuModule,
     MatToolbarModule,
     MatSidenavModule,
+		MatStepperModule,
     MatGridListModule,
     MatListModule,
 		MatTableModule,
@@ -41,7 +45,9 @@ import {AutoFocusDirective} from './directives/auto-focus.directive';
     MatButtonModule,
     MatIconModule,
 		MatSelectModule,
-		MatSlideToggleModule
+		MatSlideToggleModule,
+		MatInputModule,
+		RatingModule
 	],
 	declarations: [AutoFocusDirective],
 	exports: [
@@ -53,6 +59,7 @@ import {AutoFocusDirective} from './directives/auto-focus.directive';
     MatMenuModule,
     MatToolbarModule,
     MatSidenavModule,
+		MatStepperModule,
     MatGridListModule,
     MatListModule,
 		MatTableModule,
@@ -62,7 +69,9 @@ import {AutoFocusDirective} from './directives/auto-focus.directive';
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
-		MatSlideToggleModule
+		MatSlideToggleModule,
+		MatInputModule,
+		RatingModule
 	]
 })
 export class SharedModule {}

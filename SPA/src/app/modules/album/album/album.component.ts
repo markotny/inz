@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {switchMap, map, tap} from 'rxjs/operators';
-import {GetAlbumGQL, GetAlbumQuery} from '@gql/types.graphql-gen';
+import {switchMap, map, share} from 'rxjs/operators';
+import {GetAlbumFullGQL, GetAlbumFullQuery} from '@gql/types.graphql-gen';
 import {Observable} from 'rxjs';
 
 @Component({
@@ -18,17 +18,18 @@ import {Observable} from 'rxjs';
 	]
 })
 export class AlbumComponent implements OnInit {
-	album$: Observable<GetAlbumQuery['album']>;
+	album$: Observable<GetAlbumFullQuery['album']>;
 
 	reviewsColumns = ['stars', 'user', 'review'];
 	expandedReviewId: string;
 
-	constructor(private route: ActivatedRoute, private getAlbum: GetAlbumGQL) {}
+	constructor(private route: ActivatedRoute, private getAlbum: GetAlbumFullGQL) {}
 
 	ngOnInit() {
 		this.album$ = this.route.paramMap.pipe(
 			switchMap((params: ParamMap) => this.getAlbum.watch({id: params.get('id')}).valueChanges),
-			map(res => res.data.album)
+			map(res => res.data.album),
+			share()
 		);
 	}
 }

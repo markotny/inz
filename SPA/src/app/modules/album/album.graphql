@@ -1,4 +1,4 @@
-query getAlbum($id: ID!) {
+query getAlbumFull($id: ID!) {
 	album(id: $id) {
 		id
 		title
@@ -18,14 +18,12 @@ query getAlbum($id: ID!) {
 			name
 		}
 		ratings {
+			id
 			stars
+			review
 			user {
 				id
 				username
-			}
-			review {
-				id
-				reviewContent
 			}
 		}
 	}

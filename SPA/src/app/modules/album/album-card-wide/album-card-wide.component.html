@@ -1,0 +1,17 @@
+<div *ngIf="album$ | async as album" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px"
+	class="album-card-wrapper">
+	<img fxFlex="nogrow" class="album-cover" [src]="album.coverSrc">
+	<div fxFlex fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="10px">
+		<h3>Title: {{album.title}}</h3>
+
+		<h3>Artist: {{album.albumArtist?.name}}</h3>
+
+		<h3>Release date: {{album.releaseDate | date}}</h3>
+
+		<div *ngIf="album.averageRating" class="rating-section">
+			<h3>Average rating:</h3>
+			<star-rating [value]="album.averageRating" checkedcolor="gold" uncheckedcolor="black" size="25px" readonly="true">
+			</star-rating>
+		</div>
+	</div>
+</div>

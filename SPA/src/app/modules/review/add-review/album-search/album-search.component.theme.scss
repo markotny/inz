@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+
+@mixin album-search-component-theme($theme) {
+	$primary: map-get($theme, primary);
+	$accent: map-get($theme, accent);
+
+	mat-list-item {
+		@include mat-elevation-transition;
+		// @include mat-elevation(2);
+	
+		&:hover {
+			@include mat-elevation(8);
+		}
+	}
+}

@@ -13,6 +13,9 @@ using Microsoft.IdentityModel.Logging;
 using HotChocolate.Execution.Configuration;
 using Serilog;
 using HotChocolate.Types;
+using ResourceServer.Api.Services;
+using Microsoft.CodeAnalysis.Options;
+using ResourceServer.Api.Directives;
 
 namespace ResourceServer.Api
 {
@@ -29,11 +32,15 @@ namespace ResourceServer.Api
 
 			services.AddControllers();
 
+			services.AddHttpContextAccessor();
+			services.AddHttpClient<OpenIdService>();
+
 			services.AddGraphQL(sp => SchemaBuilder.New()
 				.AddServices(sp)
 				.AddAuthorizeDirectiveType()
 				.AddQueryType<QueryType>()
 				.AddMutationType<MutationType>()
+				//.AddDirectiveType<RecordUserDirectiveType>()
 				.BindClrType<Guid, IdType>()
 				.Create(),
 				new QueryExecutionOptions
@@ -48,7 +55,8 @@ namespace ResourceServer.Api
 				options.Authority = "http://authServer";
 				options.Audience = "reServer";
 				options.RequireHttpsMetadata = false;
-				options.TokenValidationParameters.ValidIssuer = "http://auth.localhost";
+				options.TokenValidationParameters.ValidIssuer = "http://auth";
+				options.SaveToken = true;
 			});
 
 			return ContainerSetup.InitializeApi(Assembly.GetExecutingAssembly(), services);

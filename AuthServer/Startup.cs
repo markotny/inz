@@ -11,6 +11,7 @@ using AuthServer.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Logging;
 
 namespace AuthServer
 {
@@ -45,14 +46,13 @@ namespace AuthServer
 				});
 			});
 
-			services.AddIdentityServer().AddDeveloperSigningCredential()
+			services.AddIdentityServer(options => options.IssuerUri="http://auth").AddDeveloperSigningCredential()
 				.AddOperationalStore(options =>
 				{
 					options.ConfigureDbContext = builder => builder.UseNpgsql(
 						Configuration.GetConnectionString("DefaultConnection"),
 						options => options.MigrationsAssembly("AuthServer"));
 					options.EnableTokenCleanup = true;
-					options.TokenCleanupInterval = 30;
 				})
 				.AddInMemoryIdentityResources(Config.GetIdentityResources())
 				.AddInMemoryApiResources(Config.GetApiResources())
@@ -69,6 +69,7 @@ namespace AuthServer
 			{
 				app.UseDeveloperExceptionPage();
 				app.UseDatabaseErrorPage();
+				IdentityModelEventSource.ShowPII = true;
 			}
 			else
 			{

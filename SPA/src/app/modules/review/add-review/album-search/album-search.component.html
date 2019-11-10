@@ -1,0 +1,24 @@
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30px">
+	<mat-form-field>
+		<input matInput #albumInput placeholder="Search by album name"
+			(keydown.enter)="searchByAlbumName(albumInput.value)">
+		<button mat-button matSuffix mat-icon-button (click)="searchByAlbumName(albumInput.value)">
+			<mat-icon>search</mat-icon>
+		</button>
+	</mat-form-field>
+
+	<mat-form-field>
+		<input matInput #artistInput placeholder="Search by artist" (keydown.enter)="searchByArtistName(artistInput.value)">
+		<button mat-button matSuffix mat-icon-button (click)="searchByArtistName(artistInput.value)">
+			<mat-icon>search</mat-icon>
+		</button>
+	</mat-form-field>
+</div>
+
+<mat-list>
+	<mat-list-item *ngFor="let result of (searchResults$ | async)" (click)="selectAlbum(result)">
+		<img matListAvatar [src]="getSmallImageSrc(result)">
+		<h3 matLine>{{result.name}}</h3>
+		<p matLine>{{getAlbumArtistName(result.artist)}}</p>
+	</mat-list-item>
+</mat-list>

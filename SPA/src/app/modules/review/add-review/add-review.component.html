@@ -1,0 +1,17 @@
+<mat-horizontal-stepper linear #stepper>
+	<mat-step label="Find album">
+		<app-album-search (albumSelected)="onAlbumSelect($event)"></app-album-search>
+	</mat-step>
+	<mat-step label="Review">
+		<app-album-card-wide *ngIf="album$" [album$]="album$"></app-album-card-wide>
+
+		<div class="review-form">
+			<star-rating value="0" checkedcolor="red" uncheckedcolor="black" size="40px" readonly="false"
+				[value]="rating.stars" (rate)="onRate($event)"></star-rating>
+			<mat-form-field>
+				<textarea matInput placeholder="Your review.." [(ngModel)]="rating.review"></textarea>
+			</mat-form-field>
+			<button mat-button [disabled]="!isFormValid()" (click)="onSubmit()">Submit</button>
+		</div>
+	</mat-step>
+</mat-horizontal-stepper>

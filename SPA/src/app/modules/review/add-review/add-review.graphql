@@ -1,0 +1,56 @@
+fragment albumBasic on Album {
+	id
+	mbid
+	title
+	releaseDate
+	coverSrc
+	averageRating
+	albumArtist {
+		id
+		mbid
+		name
+	}
+}
+
+query getAlbum($id: ID!) {
+	album(id: $id) {
+		...albumBasic
+	}
+}
+
+query searchAlbums($mbid: String, $title: String!, $artist: String!) {
+	searchAlbums(mbid: $mbid, title: $title, artist: $artist) {
+		...albumBasic
+	}
+}
+
+query searchArtists($mbid: String, $name: String!) {
+	searchArtists(mbid: $mbid, name: $name) {
+		id
+		name
+	}
+}
+
+mutation addRating($rating: RatingInput!) {
+	addRating(rating: $rating) {
+		id
+		# ...albumBasic
+		# ratings {
+		# 	id
+		# 	stars
+		# 	review
+		# }
+	}
+}
+
+mutation addAlbum($album: AlbumInput!) {
+	addAlbum(album: $album) {
+		id
+		# ...albumBasic
+		# ratings {
+		# 	id
+		# 	stars
+		# 	review
+		# }
+	}
+}

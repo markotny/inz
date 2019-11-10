@@ -16,10 +16,7 @@ const uri = 'api/graphql';
 	providers: [
 		{
 			provide: APOLLO_OPTIONS,
-			useFactory: (
-				httpLink: HttpLink,
-				authService: AuthService
-			) => {
+			useFactory: (httpLink: HttpLink, authService: AuthService) => {
 				const auth = authService.isAuthenticated
 					? setContext((_operation, _context) => ({
 							headers: {
@@ -41,6 +38,17 @@ const uri = 'api/graphql';
 					link: ApolloLink.from([auth, httpLink.create({uri})]),
 					cache,
 					resolvers,
+					defaultOptions: {
+						mutate: {
+							errorPolicy: 'all'
+						},
+						query: {
+							errorPolicy: 'all'
+						},
+						watchQuery: {
+							errorPolicy: 'all'
+						}
+					},
 					typeDefs: {}
 				};
 			},

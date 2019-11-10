@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using ResourceServer.Core.Entities;
+using System.Linq.Expressions;
 
 namespace ResourceServer.Infrastructure.Data
 {
@@ -16,7 +18,7 @@ namespace ResourceServer.Infrastructure.Data
 			_dbContext = dbContext;
 		}
 
-		public T GetById<T>(Guid id) where T : BaseEntity
+		public T? GetById<T>(Guid id) where T : BaseEntity
 		{
 			return _dbContext.Set<T>().SingleOrDefault(e => e.Id == id);
 		}
@@ -46,6 +48,11 @@ namespace ResourceServer.Infrastructure.Data
 			_dbContext.SaveChanges();
 
 			return entity;
+		}
+
+		public List<T> Search<T>(Expression<Func<T, bool>> filter) where T : BaseEntity
+		{
+			return _dbContext.Set<T>().Where(filter).ToList();
 		}
 	}
 }

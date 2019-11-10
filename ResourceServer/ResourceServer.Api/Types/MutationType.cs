@@ -1,4 +1,5 @@
 ﻿using HotChocolate.Types;
+using ResourceServer.Api.Directives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace ResourceServer.Api.Types
 				.Type<NonNullType<ArtistType>>();
 
 			descriptor.Field(t => t.AddAlbum(default!))
+				.Use<RecordUserMiddleware>()
 				.Argument("album", a => a.Type<NonNullType<AlbumInputType>>())
 				.Type<NonNullType<AlbumType>>();
 
@@ -27,9 +29,9 @@ namespace ResourceServer.Api.Types
 				.Type<NonNullType<SongType>>();
 
 			descriptor.Field(t => t.AddRating(default!, default!))
-				.Argument("albumId", a => a.Type<NonNullType<IdType>>())
+				.Use<RecordUserMiddleware>()
 				.Argument("rating", a => a.Type<NonNullType<RatingInputType>>())
-				.Type<NonNullType<RatingType>>();
+				.Type<NonNullType<AlbumType>>();
 		}
 	}
 }

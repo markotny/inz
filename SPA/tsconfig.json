@@ -19,7 +19,8 @@
 			"@core/*": ["app/core/*"],
 			"@shell/*": ["app/shell/*"],
 			"@shared/*": ["app/shared/*"],
-			"@account/*": ["app/account/*"]
+			"@modules/*": ["app/modules/*"],
+			"@services/*": ["app/services/*"]
 		}
 	},
 	"angularCompilerOptions": {

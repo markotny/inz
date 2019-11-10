@@ -15,6 +15,9 @@ namespace ResourceServer.Api.Types
 		{
 			descriptor.Field(t => t.UserId)
 				.Type<IdType>();
+
+			descriptor.Field(t => t.AlbumId)
+				.Type<IdType>();
 		}
 	}
 }

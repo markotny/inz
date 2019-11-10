@@ -5,6 +5,7 @@ namespace ResourceServer.Core.Entities
 {
 	public class Song : BaseEntity
 	{
+		public string? MusicBrainzId { get; set; }
 		public string Title { get; set; } = null!;
 		public int? Length { get; set; }
 		public int? TrackNumber { get; set; }

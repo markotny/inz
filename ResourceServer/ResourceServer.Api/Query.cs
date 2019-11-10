@@ -14,7 +14,7 @@ namespace ResourceServer.Api
 			_repository = repository;
 		}
 
-		public Album GetAlbum(Guid id)
+		public Album? GetAlbum(Guid id)
 		{
 			return _repository.GetById<Album>(id);
 		}
@@ -24,12 +24,37 @@ namespace ResourceServer.Api
 			return _repository.List<Album>();
 		}
 
-		public Artist GetArtist(Guid id)
+		public IEnumerable<Album> SearchAlbums(string? mbid, string title, string artist)
+		{
+			List<Album>? results = null;
+			if (!string.IsNullOrEmpty(mbid))
+				results = _repository.Search<Album>(album => album.MusicBrainzId == mbid);
+
+			return results?.Count > 0
+				? results
+				: _repository.Search<Album>(album =>
+					album.Title.ToLower().Contains(title.ToLower()) &&
+					album.AlbumArtist.Name.ToLower().Contains(artist.ToLower()));
+		}
+
+		public Artist? GetArtist(Guid id)
 		{
 			return _repository.GetById<Artist>(id);
 		}
 
-		public Song GetSong(Guid id)
+		public IEnumerable<Artist> SearchArtists(string? mbid, string name)
+		{
+			List<Artist>? results = null;
+			if (!string.IsNullOrEmpty(mbid))
+				results = _repository.Search<Artist>(artist => artist.MusicBrainzId == mbid);
+
+			return results?.Count > 0
+				? results
+				: _repository.Search<Artist>(artist =>
+					artist.Name.ToLower().Contains(name.ToLower()));
+		}
+
+		public Song? GetSong(Guid id)
 		{
 			return _repository.GetById<Song>(id);
 		}

@@ -1,9 +1,10 @@
-﻿using ResourceServer.Core.Entities;
+﻿using HotChocolate;
+using Microsoft.AspNetCore.Http;
+using ResourceServer.Core.Entities;
 using ResourceServer.Core.Interfaces;
+using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace ResourceServer.Api
 {
@@ -23,7 +24,7 @@ namespace ResourceServer.Api
 
 		public Album AddAlbum(Album album)
 		{
-			if (album.Songs.Count > 0)
+			if (album.Songs?.Count > 0)
 			{
 				foreach (var song in album.Songs)
 					song.AlbumId = album.Id;
@@ -41,12 +42,39 @@ namespace ResourceServer.Api
 			return _repository.Add(song);
 		}
 
-		public Rating AddRating(Guid albumId, Rating rating)
+		public Album AddRating(Rating rating, [State("ClaimsPrincipal")]ClaimsPrincipal claimsPrincipal)
 		{
-			var album = _repository.GetById<Album>(albumId);
+			var album = _repository.GetById<Album>(rating.AlbumId);
+			var user = _repository.GetById<User>(rating.UserId);
+
+			if (album == null)
+			{
+				throw new ArgumentException($"Attempted to add rating to nonexistent album! rating.AlbumId: {rating.AlbumId}");
+			}
+
+			if (user == null)
+			{
+				Log.Debug($"User {rating.UserId} not present in db");
+				if (rating.UserId == new Guid(claimsPrincipal.FindFirstValue(ClaimTypes.NameIdentifier)))
+				{
+					user = new User
+					{
+						Id = rating.UserId,
+						Username = claimsPrincipal.Identity.Name ?? throw new Exception("Failed to retrieve username!")
+					};
+
+					Log.Debug($"Adding user {user.Id} {user.Username} to db");
+
+					rating.User = _repository.Add(user);
+				}
+				else
+				{
+					Log.Warning($"Attempted to add rating by other user than logged in rating userId: {rating.UserId}");
+				}
+			}
 			album.AddRating(rating);
 			_repository.Update(album);
-			return rating;
+			return album;
 		}
 	}
 }

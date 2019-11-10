@@ -6,6 +6,7 @@ namespace ResourceServer.Core.Entities
 {
 	public class Album : BaseEntity
 	{
+		public string? MusicBrainzId { get; set; }
 		public string Title { get; set; } = null!;
 		public DateTime? ReleaseDate { get; set; }
 		public float? AverageRating { get; set; }

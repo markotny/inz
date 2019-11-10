@@ -6,6 +6,7 @@ namespace ResourceServer.Core.Entities
 {
 	public class Artist : BaseEntity
 	{
+		public string? MusicBrainzId { get; set; }
 		public string Name { get; set; } = null!;
 
 		public virtual ICollection<Song> Songs { get; set; } = null!;

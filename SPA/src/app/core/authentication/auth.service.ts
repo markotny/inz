@@ -23,6 +23,9 @@ export class AuthService extends BaseService {
 		return `${this.user.token_type} ${this.user.access_token}`;
 	}
 
+	get id(): string | null {
+		return this.user != null ? this.user.profile.sub : null;
+	}
 	get name(): string {
 		return this.user != null ? this.user.profile.name : '';
 	}

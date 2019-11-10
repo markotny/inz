@@ -1,5 +1,5 @@
 # source: http://localhost/api/graphql
-# timestamp: Fri Nov 08 2019 10:20:58 GMT+0100 (GMT+01:00)
+# timestamp: Sat Nov 09 2019 23:41:50 GMT+0100 (GMT+01:00)
 
 """The cost directives is used to express the complexity of a field."""
 directive @cost(
@@ -20,11 +20,14 @@ directive @authorize(
   roles: [String!]
 ) on OBJECT | FIELD_DEFINITION
 
+directive @recordUser on FIELD_DEFINITION
+
 type Album {
   albumArtist: Artist!
   averageRating: Float
   coverSrc: String
   id: ID!
+  mbid: String
   ratings: [Rating!]!
   releaseDate: DateTime
   songs: [Song!]!
@@ -37,6 +40,7 @@ input AlbumInput {
   averageRating: Float
   coverSrc: String
   id: ID
+  mbid: String
   ratings: [RatingInput]
   releaseDate: DateTime
   songs: [SongInput]
@@ -46,6 +50,7 @@ input AlbumInput {
 type Artist {
   albums: [Album!]!
   id: ID!
+  mbid: String
   name: String!
   songs: [Song!]!
 }
@@ -53,6 +58,7 @@ type Artist {
 input ArtistInput {
   albums: [AlbumInput]
   id: ID
+  mbid: String
   name: String!
   songs: [SongInput]
 }
@@ -68,43 +74,36 @@ scalar MultiplierPath
 type Mutation {
   addAlbum(album: AlbumInput!): Album!
   addArtist(artist: ArtistInput!): Artist!
+  addRating(rating: RatingInput!): Album!
   addSong(song: SongInput!): Song!
-  updateAlbum(album: AlbumInput!): Album
+  updateAlbum(album: AlbumInput!): Album!
 }
 
 type Query {
   album(id: ID!): Album
   albums: [Album!]!
   artist(id: ID!): Artist
+  searchAlbums(artist: String!, mbid: String, title: String!): [Album!]!
+  searchArtists(mbid: String, name: String!): [Artist!]!
   song(id: ID!): Song
 }
 
 type Rating {
   album: Album!
   id: ID!
-  review: Review
+  review: String
   stars: Short!
   user: User!
 }
 
 input RatingInput {
   album: AlbumInput
+  albumId: ID
   id: ID
-  review: ReviewInput
+  review: String
   stars: Short!
   user: UserInput
-}
-
-type Review {
-  id: ID!
-  rating: Rating!
-  reviewContent: String!
-}
-
-input ReviewInput {
-  id: ID
-  rating: RatingInput
-  reviewContent: String!
+  userId: ID
 }
 
 """
