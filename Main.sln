@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResourceServer.Infrastructu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResourceServer.Api", "ResourceServer\ResourceServer.Api\ResourceServer.Api.csproj", "{3C986E22-1D37-4BB9-AC5A-D4E03A28C5D3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResourceServer.UnitTests", "ResourceServer\ResourceServer.UnitTests\ResourceServer.UnitTests.csproj", "{E38C1F71-F426-4073-90D1-EDE948E78812}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourceServer.IntegrationTests", "ResourceServer\ResourceServer.IntegrationTests\ResourceServer.IntegrationTests.csproj", "{EE4DD29B-36DA-4990-895F-1E523C81AB3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{3C986E22-1D37-4BB9-AC5A-D4E03A28C5D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C986E22-1D37-4BB9-AC5A-D4E03A28C5D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C986E22-1D37-4BB9-AC5A-D4E03A28C5D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E38C1F71-F426-4073-90D1-EDE948E78812}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E38C1F71-F426-4073-90D1-EDE948E78812}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E38C1F71-F426-4073-90D1-EDE948E78812}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E38C1F71-F426-4073-90D1-EDE948E78812}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE4DD29B-36DA-4990-895F-1E523C81AB3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE4DD29B-36DA-4990-895F-1E523C81AB3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE4DD29B-36DA-4990-895F-1E523C81AB3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE4DD29B-36DA-4990-895F-1E523C81AB3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
