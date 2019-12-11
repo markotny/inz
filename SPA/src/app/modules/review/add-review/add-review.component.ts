@@ -83,6 +83,7 @@ export class AddReviewComponent implements OnInit {
 						}
 						const searchResult = res.data.searchAlbums;
 						if (searchResult.length > 0) {
+							this.isNewAlbum = false;
 							if (searchResult.length > 1) {
 								console.log(
 									'Warning - album search returned more than one result - returning first: ',

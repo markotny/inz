@@ -25,9 +25,6 @@ export class LastFmClientService {
 		}
 	});
 
-	private searchResultsSource = new Subject();
-	searchResults$ = this.searchResultsSource.asObservable();
-
 	albumSearch(query: string): Observable<LastFmAlbum[]> {
 		return this.http
 			.get<LastFmApiQueryResults>(this.baseAddress, {

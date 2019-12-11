@@ -43,7 +43,8 @@ namespace ResourceServer.IntegrationTests
 		public async Task ReturnsAlbumWithArtist()
 		{
 			var request = new JObject();
-			request.Add("query", "query getAlbum {\n  album(id: \"b0000000000000000000000000000001\") {\n    title\n    albumArtist {\n      name\n    }  }\n}\n");
+			request.Add("query", "query getAlbum { album(id: \"b0000000000000000000000000000001\")" +
+				"{ title albumArtist {name}}}");
 
 			var response = await _client.PostAsync("/", new StringContent(
 				request.ToString(), Encoding.UTF8, "application/json"));
